@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Location;
 
 use App\Cakeapp\Location\Model\Locality;
+use App\Cakeapp\Location\Model\Municipal;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Location\StoreLocalityRequest;
 use Illuminate\Http\Request;
 
 class LocalityController extends Controller
@@ -16,7 +18,7 @@ class LocalityController extends Controller
     public function index()
     {
         $allLocality = Locality::get();
-        return view('Location.locality', compact('allLocality'));
+        return view('location.locality.locality', compact('allLocality'));
 
     }
 
@@ -27,7 +29,7 @@ class LocalityController extends Controller
      */
     public function create()
     {
-        //
+        return view('location.locality.localitydetail');
     }
 
     /**
@@ -36,9 +38,15 @@ class LocalityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLocalityRequest $request)
     {
-        //
+
+        $municipal_name=$request->all()['municipal'];
+        $municipal_object= Municipal::where('municipal_name','=',$municipal_name)->first();
+        $municipal_id=$municipal_object->id;
+        $locality_array=['locality_name'=>$request->all()['locality_name'],'municipal_id'=>$municipal_id];
+        Locality::create($locality_array);
+        return redirect()->route('locality');
     }
 
     /**

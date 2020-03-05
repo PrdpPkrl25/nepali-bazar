@@ -20,8 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/provinces', 'Location\ProvinceController@index')->name('provinces');
-Route::get('/districts', 'Location\DistrictController@index')->name('districts');
-Route::get('/municipal', 'Location\MunicipalController@index')->name('municipal');
-Route::get('/locality', 'Location\LocalityController@index')->name('locality');
+Route::get('/province', 'location\ProvinceController@index')->name('province');
+Route::get('/district', 'location\DistrictController@index')->name('district');
+Route::get('/municipal', 'location\MunicipalController@index')->name('municipal');
+Route::get('/localitydetail', 'location\LocalityController@create')->name('localitydetail');
+Route::post('/localitydetail', 'location\LocalityController@store')->name('localitydetail.post');
+Route::get('/locality', 'location\LocalityController@index')->name('locality');
 

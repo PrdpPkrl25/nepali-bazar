@@ -16,7 +16,7 @@ class MunicipalController extends Controller
     public function index()
     {
         $allMunicipal = Municipal::get();
-        return view('Location.municipal',compact('allMunicipal'));
+        return view('location/municipal.municipal',compact('allMunicipal'));
     }
 
     /**

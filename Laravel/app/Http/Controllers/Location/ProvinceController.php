@@ -16,7 +16,7 @@ class ProvinceController extends Controller
     public function index()
     {
         $allProvince = Province::get();
-        return view('Location.province', compact('allProvince'));
+        return view('location/province.province', compact('allProvince'));
     }
 
     /**
