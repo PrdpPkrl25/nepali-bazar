@@ -27,7 +27,7 @@
                 <td>{{ $province->province_number }}</td>
                 <td>{{ $province->province_name }}</td>
                 <td>
-                    
+
                 </td>
             </tr>
         @endforeach
