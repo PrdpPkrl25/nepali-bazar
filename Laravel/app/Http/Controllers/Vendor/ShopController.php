@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Vendor;
 
-use App\Cakeapp\Shop\Model\Shop;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Cakeapp\Vendor\Model\Shop;
+use App\Http\Requests\Vendor\StoreShopRequest;
 
 class ShopController extends Controller
 {
@@ -15,7 +16,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        $allShop= Shop::get();
+        return view('vendor.shop.shop',compact('allShop'));
     }
 
     /**
@@ -25,7 +27,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        return view('vendor.shop.shopdetail');
     }
 
     /**
@@ -34,18 +36,21 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreShopRequest $request)
     {
-        //
+        $shop_array=['name'=>$request->input('name'),'email'=>$request->input('email'),'address'=>$request->input('address'),'phone'=>$request->input('phone'),'no_of_flavour'=>$request->input('no_of_flavour')];
+        dd($shop_array);
+        Shop::create($shop_array);
+        return redirect()->route('shops.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
+    public function show($id)
     {
         //
     }
@@ -53,10 +58,10 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +70,10 @@ class ShopController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +81,10 @@ class ShopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop)
+    public function destroy($id)
     {
         //
     }

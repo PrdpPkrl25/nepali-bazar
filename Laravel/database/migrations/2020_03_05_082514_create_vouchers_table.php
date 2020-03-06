@@ -19,7 +19,6 @@ class CreateVouchersTable extends Migration
             $table->dateTime('used_date');
             $table->dateTime('start_date');
             $table->dateTime('expiry_date');
-            $table->dateTime('created_at');
             $table->timestamps();
         });
     }

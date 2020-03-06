@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Location;
+namespace App\Http\Requests\Vendor;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreLocalityRequest extends FormRequest
+class StoreShopRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreLocalityRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,6 @@ class StoreLocalityRequest extends FormRequest
     public function rules()
     {
         return [
-                'locality_name' => 'required|max:15',
 
         ];
     }

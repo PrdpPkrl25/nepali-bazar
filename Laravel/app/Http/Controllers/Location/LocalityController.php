@@ -66,9 +66,12 @@ class LocalityController extends Controller
      * @param  \App\Locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function edit(Locality $locality)
+    public function edit($id)
     {
-        //
+        $locality = Locality::find($id);
+        return view('location.locality.localityedit',compact('locality'));
+
+
     }
 
     /**
@@ -78,9 +81,12 @@ class LocalityController extends Controller
      * @param  \App\Locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Locality $locality)
+    public function update(StoreLocalityRequest $request, $id)
     {
-        //
+        $locality=Locality::where('id','=',$id)->first();
+        $locality->locality_name = $request->input('locality_name');
+        $locality->save();
+        return redirect()->route('locality');
     }
 
     /**
@@ -89,8 +95,12 @@ class LocalityController extends Controller
      * @param  \App\Locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Locality $locality)
+    public function destroy($id)
     {
-        //
+        $locality= Locality::find($id);
+        $locality->delete();
+        return redirect()->route('locality');
     }
+
+
 }

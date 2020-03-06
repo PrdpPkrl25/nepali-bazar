@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cakeapp\Shop\Model;
+namespace App\Cakeapp\Vendor\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Controller;

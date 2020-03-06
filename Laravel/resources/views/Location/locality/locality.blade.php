@@ -1,6 +1,9 @@
-@extends('location.layout')
+@extends('layout')
 
 @section('content')
+    <div class="jumbotron text-center">
+        <h1>Location Details </h1>
+    </div>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -26,7 +29,10 @@
                 <td>{{$loop->index}}</td>
                 <td>{{$locality->municipal->municipal_name}}</td>
                 <td>{{$locality->locality_name }}</td>
-                <td> </td>
+                <td>
+                <a href="/localityedit/{{$locality->id}}">Update</a>
+                <a href="/localitydelete/{{$locality->id}}">Delete</a>
+                </td>
             </tr>
         @endforeach
     </table>

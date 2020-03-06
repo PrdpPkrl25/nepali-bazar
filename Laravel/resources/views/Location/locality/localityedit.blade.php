@@ -15,31 +15,20 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Create Locality</h2>
+                <h2>Edit Locality</h2>
             </div>
             <div class="pull-right">
-
             </div>
         </div>
     </div>
-    <form action="" method="POST">
+
+    <form action="/localityupdate/{{$locality->id}}" method="POST">
         @csrf
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Locality Name</strong>
-                    <input type="text" name="locality_name"  class="form-control" placeholder="Enter Locality Name..">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Municipal Name</strong>
-                    <select class="form-control" id="municipal" name="municipal">
-                    <option value="">Select</option>
-                    <option value="Municipal 1">Municipal 1</option>
-                    <option value="Municipal 2">Municipal 2</option>
-                    <option value="Municipal 3">Municipal 3</option>
-                    </select>
+                    <input type="text" name="locality_name"  class="form-control" value="{{$locality->locality_name}}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -49,3 +38,4 @@
 
     </form>
 @endsection
+

@@ -1,6 +1,9 @@
-@extends('location.layout')
+@extends('layout')
 
 @section('content')
+    <div class="jumbotron text-center">
+        <h1>Location Details </h1>
+    </div>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
