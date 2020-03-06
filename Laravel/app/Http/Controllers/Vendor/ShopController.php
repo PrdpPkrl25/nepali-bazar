@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\Cakeapp\Vendor\Model\ShopReporsitory;
+use App\Cakeapp\Vendor\Model\ShopRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cakeapp\Vendor\Model\Shop;
@@ -12,15 +12,15 @@ use function PHPUnit\Framework\StaticAnalysis\HappyPath\AssertIsArray\consume;
 class ShopController extends Controller
 {
     /**
-     * @var ShopReporsitory
+     * @var ShopRepository
      */
     private $shopReporsitory;
 
     /**
      * ShopController constructor.
-     * @param ShopReporsitory $shopReporsitory
+     * @param ShopRepository $shopReporsitory
      */
-    public function __construct(ShopReporsitory $shopReporsitory)
+    public function __construct(ShopRepository $shopReporsitory)
     {
         $this -> shopReporsitory = $shopReporsitory;
     }
@@ -51,7 +51,7 @@ class ShopController extends Controller
      */
     public function store(StoreShopRequest $request)
     {
-        $this -> shopReporsitory -> handleCreate($request);
+        $shop = $this -> shopReporsitory -> handleCreate($request);
 
         return redirect() -> route('shops.index');
     }
