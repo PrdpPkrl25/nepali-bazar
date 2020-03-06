@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">Create New Ward</div>
                     <div class="card-body">
-                        <a href="{{ url('/locality/ward') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('ward') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/locality/ward', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => 'ward', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('locality.ward.form', ['formMode' => 'create'])
 

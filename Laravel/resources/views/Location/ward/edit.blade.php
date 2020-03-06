@@ -23,7 +23,7 @@
 
                         {!! Form::model($ward, [
                             'method' => 'PATCH',
-                            'url' => ['/locality/ward', $ward->id],
+                            'url' => ['ward', $ward->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}
