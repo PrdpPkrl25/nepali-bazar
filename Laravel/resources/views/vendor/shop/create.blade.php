@@ -1,14 +1,5 @@
 @extends('layout')
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="jumbotron text-center">
         <h1>Shop Details </h1>
     </div>
@@ -22,7 +13,7 @@
             </div>
         </div>
     </div>
-    <form action="" method="POST">
+    <form action="{{ route('shops.store') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">

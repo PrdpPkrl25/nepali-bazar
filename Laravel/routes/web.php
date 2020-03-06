@@ -13,23 +13,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route ::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('shops', 'Vendor\ShopController');
 
-Auth::routes();
+Auth ::routes();
+Route ::get('/home', 'HomeController@index') -> name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/province', 'location\ProvinceController@index')->name('province');
-Route::get('/district', 'location\DistrictController@index')->name('district');
-Route::get('/municipal', 'location\MunicipalController@index')->name('municipal');
-Route::get('/locality', 'location\LocalityController@index')->name('locality');
-Route::get('/localitydetail', 'location\LocalityController@create')->name('localitydetail');
-Route::post('/localitydetail', 'location\LocalityController@store')->name('localitydetail.post');
-Route::get('/localityedit/{id}', 'location\LocalityController@edit')->name('localityedit');
-Route::post('/localityupdate/{id}', 'location\LocalityController@update')->name('localityedit.post');
-Route::get('/localitydelete/{id}', 'location\LocalityController@destroy')->name('localitydelete');
+Route ::namespace('Vendor') -> group(function () {
+    Route ::resource('shops', 'ShopController');
+});
+
+
+
+Route ::namespace('Location') -> group(function () {
+    Route ::get('/province', 'ProvinceController@index') -> name('province');
+    Route ::get('/district', 'DistrictController@index') -> name('district');
+    Route ::get('/municipal', 'MunicipalController@index') -> name('municipal');
+    Route ::get('/locality', 'LocalityController@index') -> name('locality');
+    Route ::get('/localitydetail', 'LocalityController@create') -> name('localitydetail');
+    Route ::post('/localitydetail', 'LocalityController@store') -> name('localitydetail.post');
+    Route ::get('/localityedit/{id}', 'LocalityController@edit') -> name('localityedit');
+    Route ::post('/localityupdate/{id}', 'LocalityController@update') -> name('localityedit.post');
+    Route ::get('/localitydelete/{id}', 'LocalityController@destroy') -> name('localitydelete');
+});
+
+
+
 
 

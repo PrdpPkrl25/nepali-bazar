@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'Model' => App\User::class,
+            'model' => \App\Cakeapp\User\Model\User::class,
         ],
 
         // 'users' => [

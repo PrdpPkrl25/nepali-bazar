@@ -36,14 +36,10 @@
                 <td>{{$shop->phone}}</td>
                 <td>{{$shop->no_of_flavour}}</td>
                 <td>
-                    <a href="/localityedit/{{$locality->id}}">Update</a>
-                    <a href="/localitydelete/{{$locality->id}}">Delete</a>
+                    <a href="{{route('shops.edit',$shop->id)}}">Update</a>
+                    <a href="{{route('shops.show',$shop->id)}}">Show</a>
                 </td>
             </tr>
         @endforeach
     </table>
-
-
-
-
 @endsection
