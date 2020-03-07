@@ -7,22 +7,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Requests\Vendor\StoreShopRequest;
-use function PHPUnit\Framework\StaticAnalysis\HappyPath\AssertIsArray\consume;
 
 class ShopController extends Controller
 {
     /**
      * @var ShopRepository
      */
-    private $shopReporsitory;
+    private $shopRepository;
 
     /**
      * ShopController constructor.
-     * @param ShopRepository $shopReporsitory
+     * @param ShopRepository $shopRepository
      */
-    public function __construct(ShopRepository $shopReporsitory)
+    public function __construct(ShopRepository $shopRepository)
     {
-        $this -> shopReporsitory = $shopReporsitory;
+        $this -> shopRepository = $shopRepository;
     }
 
     /**
@@ -51,7 +50,7 @@ class ShopController extends Controller
      */
     public function store(StoreShopRequest $request)
     {
-        $shop = $this -> shopReporsitory -> handleCreate($request);
+        $shop = $this -> shopRepository -> handleCreate($request);
 
         return redirect() -> route('shops.index');
     }
@@ -63,7 +62,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $shop = $this -> shopReporsitory -> showData($id);
+        $shop = $this -> shopRepository -> showData($id);
 
         return view('Vendor.shop.show', compact('shop'));
     }
@@ -96,7 +95,7 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        $this -> shopReporsitory -> handleDelete($id);
+        $this -> shopRepository -> handleDelete($id);
 
         return redirect() -> route('shops.index');
     }
