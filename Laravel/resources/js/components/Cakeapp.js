@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-export default class Counter extends Component {
+export default class Cakeapp extends Component {
     render() {
         return (
             <div className="container">
-            <p>Counter Component</p>
-        </div>
-    );
+                <p>Cakeapp Component</p>
+            </div>
+        );
     }
 }
 
 if (document.getElementById('counter')) {
-    ReactDOM.render(<counter></counter>, document.getElementById('counter'));
+    ReactDOM.render(<counter/>, document.getElementById('counter'));
 }
