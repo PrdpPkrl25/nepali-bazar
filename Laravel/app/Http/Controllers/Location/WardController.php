@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Location;
 
+use App\Cakeapp\Location\Model\WardRepository;
 use App\Cakeapp\Location\Model\Municipal;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Cakeapp\Location\Model\Ward;
 use Illuminate\Http\Request;
 
 class WardController extends Controller
 {
+
+    private $wardRepository;
+
+    public function __construct(WardRepository $wardRepository)
+    {
+        $this -> wardRepository = $wardRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\View\View
      */
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -53,10 +63,8 @@ class WardController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Ward::create($requestData);
+
+        $ward= $this-> wardRepository -> handleCreate($request);
 
         return redirect('ward')->with('flash_message', 'Ward added!');
     }
@@ -70,9 +78,9 @@ class WardController extends Controller
      */
     public function show($id)
     {
-        $ward = Ward::findOrFail($id);
+        $ward = $this-> wardRepository-> showData($id);
 
-        return view('locality.ward.show', compact('ward'));
+        return view('location.ward.show', compact('ward'));
     }
 
     /**
@@ -84,7 +92,7 @@ class WardController extends Controller
      */
     public function edit($id)
     {
-        $ward = Ward::findOrFail($id);
+        $ward = $this-> wardRepository->showData($id);
 
         return view('locality.ward.edit', compact('ward'));
     }
@@ -99,10 +107,9 @@ class WardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
-        $ward = Ward::findOrFail($id);
+        $ward = $this-> wardRepository->showData($id);
         $ward->update($requestData);
 
         return redirect('ward')->with('flash_message', 'Ward updated!');
@@ -117,7 +124,7 @@ class WardController extends Controller
      */
     public function destroy($id)
     {
-        Ward::destroy($id);
+        $this->wardRepository->handleDelete($id);
 
         return redirect('ward')->with('flash_message', 'Ward deleted!');
     }

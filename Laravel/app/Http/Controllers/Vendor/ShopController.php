@@ -14,15 +14,15 @@ class ShopController extends Controller
     /**
      * @var ShopRepository
      */
-    private $shopReporsitory;
+    private $shopRepository;
 
     /**
      * ShopController constructor.
-     * @param ShopRepository $shopReporsitory
+     * @param ShopRepository $shopRepository
      */
-    public function __construct(ShopRepository $shopReporsitory)
+    public function __construct(ShopRepository $shopRepository)
     {
-        $this -> shopReporsitory = $shopReporsitory;
+        $this -> shopRepository = $shopRepository;
     }
 
     /**
