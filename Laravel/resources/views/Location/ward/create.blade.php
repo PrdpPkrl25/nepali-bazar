@@ -14,7 +14,7 @@
 
                         {!! Form::open(['url' => 'ward', 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ('locality.ward.form', ['formMode' => 'create'])
+                        @include ('location.ward.form', ['formMode' => 'create'])
 
                         {!! Form::close() !!}
 

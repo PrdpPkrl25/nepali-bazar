@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">Ward</div>
                     <div class="card-body">
-                        <a href="{{ url('/locality/ward/create') }}" class="btn btn-success btn-sm" title="Add New Ward">
+                        <a href="{{ url('ward/create') }}" class="btn btn-success btn-sm" title="Add New Ward">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
@@ -37,13 +36,13 @@
                                 @foreach($ward as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->title }}</td><td>{{ $item->content }}</td>
+                                        <td>{{ $item->ward_number }}</td><td>{{ $item->municipal->municipal_name }}</td>
                                         <td>
-                                            <a href="{{ url('/locality/ward/' . $item->id) }}" title="View Ward"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/locality/ward/' . $item->id . '/edit') }}" title="Edit Ward"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/ward/' . $item->id) }}" title="View Ward"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/ward/' . $item->id . '/edit') }}" title="Edit Ward"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => ['/locality/ward', $item->id],
+                                                'url' => ['/ward', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

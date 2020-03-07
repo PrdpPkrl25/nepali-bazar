@@ -19,7 +19,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('locality.ward.form', ['formMode' => 'edit'])
+                        @include ('location.ward.form', ['formMode' => 'edit'])
 
                         {!! Form::close() !!}
 

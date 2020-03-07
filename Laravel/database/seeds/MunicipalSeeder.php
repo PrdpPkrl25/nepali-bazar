@@ -14,9 +14,9 @@ class MunicipalSeeder extends Seeder
     public function run()
     {
         $allMunicipal = [
-            ['municipal_name' => 'Municipal 1', 'district_name' => 'Taplejung'],
-            ['municipal_name' => 'Municipal 2', 'district_name' => 'Panchthar'],
-            ['municipal_name' => 'Municipal 3', 'district_name' => 'Banke'],
+            ['municipal_name' => 'Kohalpur', 'district_name' => 'Banke'],
+            ['municipal_name' => 'Nepalgunj', 'district_name' => 'Banke'],
+            ['municipal_name' => 'Gulariya', 'district_name' => 'Bardiya'],
 
         ];
 

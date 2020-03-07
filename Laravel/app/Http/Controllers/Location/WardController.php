@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Location;
 
+use App\Cakeapp\Location\Model\Municipal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Cakeapp\Location\Model\Ward;
@@ -27,6 +28,7 @@ class WardController extends Controller
             $ward = Ward::latest()->paginate($perPage);
         }
 
+
         return view('Location.ward.index', compact('ward'));
     }
 
@@ -37,7 +39,9 @@ class WardController extends Controller
      */
     public function create()
     {
-        return view('Location.ward.create');
+        $municipality = Municipal::pluck('municipal_name','id')->toArray();
+
+        return view('Location.ward.create',compact('municipality'));
     }
 
     /**

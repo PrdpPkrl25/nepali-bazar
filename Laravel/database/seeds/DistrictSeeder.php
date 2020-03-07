@@ -15,8 +15,6 @@ class DistrictSeeder extends Seeder
     public function run()
     {
         $allDistrict=[
-            ['district_name'=>'Taplejung','province_name'=>'Province 1'],
-            ['district_name'=>'Panchthar','province_name'=>'Province 1'],
             ['district_name'=>'Banke','province_name'=>'Province 5'],
             ['district_name'=>'Bardiya','province_name'=>'Province 5'],
 

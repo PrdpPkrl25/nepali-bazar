@@ -25,7 +25,12 @@ class Ward extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['municipal_id', 'ward_number'];
+
+    protected function municipal()
+    {
+        return $this->belongsTo(Municipal::class,'municipal_id');
+    }
 
     
 }
