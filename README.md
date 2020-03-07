@@ -14,3 +14,7 @@ Remember when you setup Homestead.yaml file, map the site to Cakeapp/Laravel/pub
 
 Start the basic with:-
 https://dev.to/lvtdeveloper/using-react-in-a-laravel-application-8fp
+
+
+Useful link :-
+https://www.toptal.com/laravel/restful-laravel-api-tutorial
