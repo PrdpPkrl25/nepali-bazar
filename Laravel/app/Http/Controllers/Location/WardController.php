@@ -46,15 +46,8 @@ class WardController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-=======
 
         $ward= $this-> wardRepository -> handleCreate($request);
->>>>>>> 3dd8c130fc517ca03ee08f02991b606530cc6dd1
-
-        $requestData = $request -> all();
-
-        Ward ::create($requestData);
 
         return redirect('ward') -> with('flash_message', 'Ward added!');
     }
@@ -66,11 +59,7 @@ class WardController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
-        $ward = Ward ::findOrFail($id);
-=======
         $ward = $this-> wardRepository-> showData($id);
->>>>>>> 3dd8c130fc517ca03ee08f02991b606530cc6dd1
 
         return view('location.ward.show', compact('ward'));
     }
@@ -82,11 +71,7 @@ class WardController extends Controller
      */
     public function edit($id)
     {
-<<<<<<< HEAD
-        $ward = Ward ::findOrFail($id);
-=======
         $ward = $this-> wardRepository->showData($id);
->>>>>>> 3dd8c130fc517ca03ee08f02991b606530cc6dd1
 
         return view('locality.ward.edit', compact('ward'));
     }
@@ -99,18 +84,7 @@ class WardController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-=======
-
-        $requestData = $request->all();
         $ward = $this-> wardRepository->showData($id);
-        $ward->update($requestData);
->>>>>>> 3dd8c130fc517ca03ee08f02991b606530cc6dd1
-
-        $requestData = $request -> all();
-
-        $ward = Ward ::findOrFail($id);
-        $ward -> update($requestData);
 
         return redirect('ward') -> with('flash_message', 'Ward updated!');
     }
@@ -122,11 +96,8 @@ class WardController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
-        Ward ::destroy($id);
-=======
+
         $this->wardRepository->handleDelete($id);
->>>>>>> 3dd8c130fc517ca03ee08f02991b606530cc6dd1
 
         return redirect('ward') -> with('flash_message', 'Ward deleted!');
     }
