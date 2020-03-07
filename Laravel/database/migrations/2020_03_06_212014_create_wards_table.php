@@ -14,9 +14,9 @@ class CreateWardsTable extends Migration
     {
         Schema::create('wards', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('ward_number');
+            $table->integer('municipality_id')->nullable();
             $table->timestamps();
-            $table->string('title')->nullable();
-            $table->text('content')->nullable();
             });
     }
 
