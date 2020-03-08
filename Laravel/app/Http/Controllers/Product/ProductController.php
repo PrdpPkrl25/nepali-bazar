@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Product;
 
 use App\Cakeapp\Product\Model\Product;
+use App\Cakeapp\Product\Model\ProductRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this -> productRepository = $productRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Product::all();
     }
 
     /**
@@ -36,7 +45,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = $this-> productRepository -> handleCreate($request);
+
+        return response()->json($product,201);
     }
 
     /**
@@ -47,7 +58,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+
     }
 
     /**
@@ -68,9 +79,12 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $product = $this-> productRepository->showData($id);
+        $product->update($requestData);
+        return response()->json($product,200);
     }
 
     /**
@@ -79,8 +93,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $this->productRepository->handleDelete($id);
+        return response()->json(null,204);
     }
 }

@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Cakeapp\Purchase\Model\Order;
+use App\Cakeapp\Purchase\Model\OrderRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    private $orderRepository;
+
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this-> orderRepository = $orderRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return Order::all();
     }
 
     /**
@@ -36,7 +44,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = $this -> orderRepository -> handleCreate($request);
+
+        return response()->json($order,200);
     }
 
     /**
@@ -68,9 +78,12 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $order = $this-> orderRepository->showData($id);
+        $order->update($requestData);
+        return response()->json($order,200);
     }
 
     /**
@@ -79,8 +92,10 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        $this -> orderRepository -> handleDelete($id);
+
+        return response()->json(null,204);
     }
 }

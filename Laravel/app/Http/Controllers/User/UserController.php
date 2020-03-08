@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 
 
+
 class UserController extends Controller
 {
     private $userRepository;
@@ -25,11 +26,10 @@ class UserController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function index(Request $request)
+    public function index()
     {
-        $allUser= User::paginate(10);
+        return User::all();
 
-        return view('user.index', compact('allUser'));
     }
 
     /**
@@ -39,7 +39,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
     }
 
     /**
@@ -51,9 +50,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user= $this-> userRepository -> handleCreate($request);
+        $user = $this-> userRepository -> handleCreate($request);
 
-        return redirect('users')->with('flash_message', 'User added!');
+        return response()->json($user,201);
     }
 
     /**
@@ -65,9 +64,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this-> userRepository-> showData($id);
 
-        return view('user.show', compact('user'));
     }
 
     /**
@@ -79,9 +76,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = $this-> userRepository->showData($id);
-
-        return view('user.edit', compact('shop'));
     }
 
     /**
@@ -98,8 +92,7 @@ class UserController extends Controller
         $requestData = $request->all();
         $user = $this-> userRepository->showData($id);
         $user->update($requestData);
-
-        return redirect('users')->with('flash_message', 'User updated!');
+        return response()->json($user,200);
     }
 
     /**
@@ -113,6 +106,6 @@ class UserController extends Controller
     {
         $this->userRepository->handleDelete($id);
 
-        return redirect('users')->with('flash_message', 'User deleted!');
+        return response()->json(null,204);
     }
 }

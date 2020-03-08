@@ -21,3 +21,35 @@ Route ::middleware('auth:api') -> get('/user', function (Request $request) {
 Route ::namespace('Location') -> group(function () {
     Route ::resource('wards', 'WardController');
 });
+
+Route ::namespace('User') -> group(function () {
+    Route ::resource('users', 'UserController');
+});
+
+Route ::namespace('Vendor') -> group(function () {
+    Route ::resource('shops', 'ShopController');
+});
+
+Route ::namespace('Location') -> group(function () {
+    Route ::resource('municipals', 'MunicipalController');
+});
+
+Route ::namespace('Product') -> group(function () {
+    Route ::resource('products', 'ProductController');
+});
+
+Route ::namespace('Purchase') -> group(function () {
+    Route ::resource('carts', 'CartController');
+    Route ::resource('orders', 'OrderController');
+    Route ::resource('purchases', 'PurchasesController');
+});
+
+Route ::namespace('Payment') -> group(function () {
+    Route ::resource('payments', 'PaymentController');
+});
+
+Route ::namespace('Delivery') -> group(function () {
+    Route ::resource('deliveries', 'DeliveryController');
+});
+
+

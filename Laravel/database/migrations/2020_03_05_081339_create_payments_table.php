@@ -17,6 +17,8 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->dateTime('payment_date');
             $table->boolean('is_success');
+            $table->integer('purchase_id');
+
             $table->timestamps();
         });
     }

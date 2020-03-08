@@ -3,11 +3,21 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Cakeapp\Purchase\Model\Cart;
+use App\Cakeapp\Purchase\Model\CartRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    private $cartRepository;
+
+    public function __construct(CartRepository $cartRepository)
+    {
+        $this -> cartRepository = $cartRepository;
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +25,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return Cart::all();
     }
 
     /**
@@ -36,7 +46,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cart = $this -> cartRepository -> handleCreate($request);
+
+        return response()->json($cart,200);
     }
 
     /**
@@ -68,9 +80,12 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $cart = $this-> cartRepository->showData($id);
+        $cart->update($requestData);
+        return response()->json($cart,200);
     }
 
     /**
@@ -79,8 +94,10 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+        $this -> cartRepository -> handleDelete($id);
+
+        return response()->json(null,204);
     }
 }

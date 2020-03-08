@@ -14,9 +14,9 @@ class LocalitySeeder extends Seeder
     public function run()
     {
         $allLocality= [
-                ['locality_name'=>'Locality 1', 'municipal_name'=>'Municipal 1'],
-                ['locality_name'=>'Locality 2', 'municipal_name'=>'Municipal 2'],
-                ['locality_name'=>'Locality 3', 'municipal_name'=>'Municipal 3']
+                ['locality_name'=>'Srijana nagar', 'municipal_name'=>'Kohalpur'],
+                ['locality_name'=>'Shanti nagar', 'municipal_name'=>'Nepalgunj'],
+                ['locality_name'=>'Sanik nagar', 'municipal_name'=>'Gulariya']
             ];
 
        foreach ($allLocality as $locality)

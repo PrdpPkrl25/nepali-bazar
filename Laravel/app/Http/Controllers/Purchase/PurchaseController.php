@@ -3,11 +3,26 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Cakeapp\Purchase\Model\Purchase;
+use App\Cakeapp\Purchase\Model\PurchaseRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
+
+    /**
+     * @var purchaseRepository
+     */
+    private $purchaseRepository;
+
+    /**
+     * PurchaseController constructor.
+     * @param PurchaseRepository $purchaseRepository
+     */
+    public function __construct(PurchaseRepository $purchaseRepository)
+    {
+        $this -> purchaseRepository = $purchaseRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        return Purchase::all();
     }
 
     /**
@@ -36,7 +51,9 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $purchase = $this -> purchaseRepository -> handleCreate($request);
+
+        return response()->json($purchase,200);
     }
 
     /**
@@ -68,9 +85,12 @@ class PurchaseController extends Controller
      * @param  \App\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $purchase = $this-> purchaseRepository->showData($id);
+        $purchase->update($requestData);
+        return response()->json($purchase,200);
     }
 
     /**
@@ -79,8 +99,10 @@ class PurchaseController extends Controller
      * @param  \App\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        $this -> purchaseRepository -> handleDelete($id);
+
+        return response()->json(null,204);
     }
 }

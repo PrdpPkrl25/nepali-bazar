@@ -30,8 +30,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $allShop = Shop ::get();
-        return view('vendor.shop.index', compact('allShop'));
+        return  Shop ::all();
     }
 
     /**
@@ -40,7 +39,6 @@ class ShopController extends Controller
      */
     public function create()
     {
-        return view('vendor.shop.create');
     }
 
     /**
@@ -52,7 +50,7 @@ class ShopController extends Controller
     {
         $shop = $this -> shopRepository -> handleCreate($request);
 
-        return redirect() -> route('shops.index');
+        return response()->json($shop,200);
     }
 
     /**
@@ -62,9 +60,9 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $shop = $this -> shopRepository -> showData($id);
+       /* $shop = $this -> shopRepository -> showData($id);
 
-        return view('Vendor.shop.show', compact('shop'));
+        return view('Vendor.shop.show', compact('shop'));*/
     }
 
     /**
@@ -85,7 +83,10 @@ class ShopController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $shop = $this-> shopRepository->showData($id);
+        $shop->update($requestData);
+        return response()->json($shop,200);
     }
 
     /**
@@ -97,6 +98,6 @@ class ShopController extends Controller
     {
         $this -> shopRepository -> handleDelete($id);
 
-        return redirect() -> route('shops.index');
+        return response()->json(null,204);
     }
 }

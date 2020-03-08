@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Location;
 
+use App\Cakeapp\Location\Model\MunicipalRepository;
 use App\Cakeapp\Location\Model\Municipal;
+use App\Cakeapp\Vendor\Model\ShopRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class MunicipalController extends Controller
 {
+    private $municipalRepository;
+
+    public function __construct(MunicipalRepository $municipalRepository)
+    {
+        $this -> municipalRepository = $municipalRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +25,8 @@ class MunicipalController extends Controller
      */
     public function index()
     {
-        $allMunicipal = Municipal::get();
-        return view('location/municipal.municipal',compact('allMunicipal'));
+        return Municipal::get();
+
     }
 
     /**
@@ -37,7 +47,9 @@ class MunicipalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $municipal = $this -> municipalRepository -> handleCreate($request);
+
+        return response()->json($municipal,200);
     }
 
     /**
@@ -46,7 +58,7 @@ class MunicipalController extends Controller
      * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function show(Municipal $municipal)
+    public function show($id)
     {
         //
     }
@@ -57,7 +69,7 @@ class MunicipalController extends Controller
      * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Municipal $municipal)
+    public function edit($id)
     {
         //
     }
@@ -69,9 +81,12 @@ class MunicipalController extends Controller
      * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Municipal $municipal)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $municipal = $this-> municipalRepository->showData($id);
+        $municipal->update($requestData);
+        return response()->json($municipal,200);
     }
 
     /**
@@ -80,8 +95,10 @@ class MunicipalController extends Controller
      * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Municipal $municipal)
+    public function destroy($id)
     {
-        //
+        $this->municipalRepository->handleDelete($id);
+
+        return response()->json(null,204);
     }
 }

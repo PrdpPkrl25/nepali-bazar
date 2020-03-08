@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Delivery;
 
 use App\Cakeapp\Delivery\Model\Delivery;
+use App\Cakeapp\Delivery\Model\DeliveryRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
+    private $deliveryRepository;
+
+    public function __construct(DeliveryRepository $deliveryRepository)
+    {
+        $this -> deliveryRepository = $deliveryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        return Delivery::all();
     }
 
     /**
@@ -36,7 +44,9 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $delivery = $this -> deliveryRepository -> handleCreate($request);
+        return response()->json($delivery,200);
+
     }
 
     /**
@@ -68,9 +78,12 @@ class DeliveryController extends Controller
      * @param  \App\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Delivery $delivery)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $delivery = $this-> deliveryRepository->showData($id);
+        $delivery->update($requestData);
+        return response()->json($delivery,200);
     }
 
     /**
@@ -79,8 +92,9 @@ class DeliveryController extends Controller
      * @param  \App\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Delivery $delivery)
+    public function destroy($id)
     {
-        //
+        $this -> deliveryRepository -> handleDelete($id);
+        return response()->json(null,204);
     }
 }

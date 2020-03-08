@@ -17,6 +17,8 @@ class CreateMunicipalsTable extends Migration
             $table->id();
             $table->string('municipal_name');
             $table->integer('district_id');
+            $table->integer('number_of_wards');
+
 
             $table->timestamps();
         });

@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Cakeapp\Payment\Model\Payment;
+use App\Cakeapp\Payment\Model\PaymentRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    private $paymentRepository;
+
+    public function __construct(PaymentRepository $paymentRepository)
+    {
+        $this -> paymentRepository = $paymentRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+       return Payment::all();
     }
 
     /**
@@ -36,7 +44,9 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payment = $this -> paymentRepository -> handleCreate($request);
+
+        return response()->json($payment,200);
     }
 
     /**
@@ -68,9 +78,12 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $payment = $this-> paymentRepository->showData($id);
+        $payment->update($requestData);
+        return response()->json($payment,200);
     }
 
     /**
@@ -79,8 +92,10 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy($id)
     {
-        //
+        $this -> paymentRepository -> handleDelete($id);
+
+        return response()->json(null,204);
     }
 }
