@@ -2,9 +2,11 @@
 
 namespace App\Cakeapp\User\Model;
 
+use App\Mail\UserVerified;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -28,6 +30,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected static function booted(){
+        static::created(function ($user)
+        {
+            Mail::to($user)->send(new UserVerified($user));
+        });
+    }
     /**
      * The attributes that should be cast to native types.
      *

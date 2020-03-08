@@ -18,13 +18,16 @@ Route ::get('/', function () {
 });
 
 
-Auth ::routes();
+//Auth ::routes();
 Route ::get('/home', 'HomeController@index') -> name('home');
 
 Route ::namespace('Vendor') -> group(function () {
     Route ::resource('shops', 'ShopController');
 });
 
+Route::namespace('User') ->group(function (){
+    Route::resource('users','UserController');
+});
 
 
 Route ::namespace('Location') -> group(function () {
