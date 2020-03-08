@@ -40,7 +40,6 @@ Route ::namespace('Location') -> group(function () {
     Route ::get('/localityedit/{id}', 'LocalityController@edit') -> name('localityedit');
     Route ::post('/localityupdate/{id}', 'LocalityController@update') -> name('localityedit.post');
     Route ::get('/localitydelete/{id}', 'LocalityController@destroy') -> name('localitydelete');
-    Route::resource('ward', 'WardController');
 });
 
 
@@ -48,3 +47,8 @@ Route ::namespace('Location') -> group(function () {
 
 
 
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
