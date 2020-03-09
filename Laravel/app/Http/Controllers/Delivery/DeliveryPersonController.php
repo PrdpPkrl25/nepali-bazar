@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Delivery;
 
 use App\Cakeapp\Delivery\Model\DeliveryPerson;
+use App\Cakeapp\Delivery\Model\DeliveryPersonRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Delivery\DeliveryPersonCollection;
+use App\Http\Resources\Delivery\DeliveryPersonResource;
 use Illuminate\Http\Request;
 
 class DeliveryPersonController extends Controller
 {
+    private $deliverypersonRepository;
+
+    public function __construct(DeliveryPersonRepository $deliverypersonRepository)
+    {
+        $this -> deliverypersonRepository = $deliverypersonRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,8 @@ class DeliveryPersonController extends Controller
      */
     public function index()
     {
-        //
+        $deliveryperson = $this-> deliverypersonRepository -> getIndexViewData();
+        return new DeliveryPersonCollection($deliveryperson);
     }
 
     /**
@@ -25,7 +35,7 @@ class DeliveryPersonController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +46,8 @@ class DeliveryPersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $deliveryperson = $this -> deliverypersonRepository -> handleCreate($request);
+        return response()->json($deliveryperson,200);
     }
 
     /**
@@ -45,9 +56,10 @@ class DeliveryPersonController extends Controller
      * @param  \App\DeliveryPerson  $deliveryPerson
      * @return \Illuminate\Http\Response
      */
-    public function show(DeliveryPerson $deliveryPerson)
+    public function show($id)
     {
-        //
+        $deliveryperson = $this -> deliverypersonRepository -> showData($id);
+        return new DeliveryPersonResource($deliveryperson);
     }
 
     /**
@@ -68,9 +80,12 @@ class DeliveryPersonController extends Controller
      * @param  \App\DeliveryPerson  $deliveryPerson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DeliveryPerson $deliveryPerson)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $deliveryperson = $this-> deliverypersonRepository->showData($id);
+        $deliveryperson->update($requestData);
+        return response()->json($deliveryperson,200);
     }
 
     /**
@@ -79,8 +94,9 @@ class DeliveryPersonController extends Controller
      * @param  \App\DeliveryPerson  $deliveryPerson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DeliveryPerson $deliveryPerson)
+    public function destroy($id)
     {
-        //
+        $this -> deliverypersonRepository -> handleDelete($id);
+        return response()->json(null,204);
     }
 }

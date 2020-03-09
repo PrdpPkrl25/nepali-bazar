@@ -15,8 +15,7 @@ class CreateDeliveryPeopleTable extends Migration
     {
         Schema::create('delivery_people', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('number');
+            $table->integer('user_id');
             $table->dateTime('join_date');
             $table->timestamps();
         });

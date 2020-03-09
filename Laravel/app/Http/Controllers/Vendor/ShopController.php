@@ -17,6 +17,7 @@ class ShopController extends Controller
      */
     private $shopRepository;
 
+
     /**
      * ShopController constructor.
      * @param ShopRepository $shopRepository
@@ -52,7 +53,6 @@ class ShopController extends Controller
     public function store(StoreShopRequest $request)
     {
         $shop = $this -> shopRepository -> handleCreate($request);
-
         return response()->json($shop,200);
     }
 
@@ -99,7 +99,6 @@ class ShopController extends Controller
     public function destroy($id)
     {
         $this -> shopRepository -> handleDelete($id);
-
         return response()->json(null,204);
     }
 }

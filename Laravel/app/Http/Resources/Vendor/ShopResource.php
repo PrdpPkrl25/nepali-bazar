@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Vendor;
 
+
 use App\Http\Resources\Location\MunicipalResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
