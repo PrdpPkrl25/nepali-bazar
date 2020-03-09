@@ -18,6 +18,10 @@ class ShopRepository extends Repository
         return Shop::class;
     }
 
+    public function getIndexViewData(){
+        return Shop::all();
+    }
+
     public function handleCreate($request)
     {
         $shop = $this -> create($request -> all());

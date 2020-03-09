@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Cakeapp\User\Model\User;
 use App\Cakeapp\User\Model\UserRepository;
+use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +30,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::all();
+        $users=$this->userRepository->getIndexViewData();
+        return new UserCollection($users);
 
     }
 
@@ -39,6 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
+
     }
 
     /**
@@ -64,7 +68,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
+        $user = $this-> userRepository->showData($id);
+        return new UserResource($user);
     }
 
     /**

@@ -11,17 +11,17 @@ class Shop extends Model
 {
     protected $table = 'shops';
 
-    protected $fillable = ['name','email','address','phone','no_of_flavour','owner_id','municipal_id','locality_id'];
+    protected $fillable = ['name','email','address','phone','number_of_flavour','owner_id','municipal_id','locality_id'];
 
     protected function owner(){
-        return $this->hasOne(User::class,'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     protected function municipal(){
-        return $this->hasOne(Municipal::class,'municipal_id');
+        return $this->belongsTo(Municipal::class,'municipal_id');
     }
 
     protected function locality(){
-        return $this->hasOne(Locality::class,'locality_id');
+        return $this->belongsTo(Locality::class,'locality_id');
     }
 }

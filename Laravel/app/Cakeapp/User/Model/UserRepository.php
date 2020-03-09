@@ -19,6 +19,10 @@ class UserRepository extends Repository
         return User::class;
     }
 
+    public function getIndexViewData(){
+        return User::all();
+    }
+
     public function handleCreate($request)
     {
         $user= $this->create($request->all());

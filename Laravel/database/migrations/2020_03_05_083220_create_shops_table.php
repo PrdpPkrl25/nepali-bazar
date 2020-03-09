@@ -19,7 +19,7 @@ class CreateShopsTable extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('phone');
-            $table->integer('no_of_flavour');
+            $table->integer('number_of_flavour');
             $table->integer('owner_id');
             $table->integer('municipal_id');
             $table->integer('locality_id')->nullable();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Cakeapp\Vendor\Model\ShopRepository;
+use App\Http\Resources\Vendor\ShopCollection;
+use App\Http\Resources\Vendor\ShopResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cakeapp\Vendor\Model\Shop;
@@ -30,7 +32,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return  Shop ::all();
+        $shops = $this-> shopRepository -> getIndexViewData();
+        return new ShopCollection($shops);
     }
 
     /**
@@ -60,9 +63,8 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-       /* $shop = $this -> shopRepository -> showData($id);
-
-        return view('Vendor.shop.show', compact('shop'));*/
+       $shop = $this -> shopRepository -> showData($id);
+       return new ShopResource($shop);
     }
 
     /**

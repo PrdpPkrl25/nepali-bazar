@@ -1,5 +1,7 @@
 <?php
 
+use App\Cakeapp\User;
+use App\Http\Resources\UserResource as UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
