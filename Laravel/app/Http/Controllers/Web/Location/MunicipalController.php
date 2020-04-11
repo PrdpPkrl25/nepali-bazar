@@ -1,13 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Location;
+namespace App\Http\Controllers\Web\Location;
 
-use App\Cakeapp\Location\Model\District;
+use App\Cakeapp\Location\Model\MunicipalRepository;
+use App\Cakeapp\Location\Model\Municipal;
+use App\Cakeapp\Vendor\Model\ShopRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DistrictController extends Controller
+class MunicipalController extends Controller
 {
+    private $municipalRepository;
+
+    public function __construct(MunicipalRepository $municipalRepository)
+    {
+        $this -> municipalRepository = $municipalRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +25,8 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $allDistrict = District::get();
-        return view('location/district.district', compact('allDistrict'));
+        return Municipal::get();
+
     }
 
     /**
@@ -37,16 +47,18 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $municipal = $this -> municipalRepository -> handleCreate($request);
+
+        return response()->json($municipal,200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\District  $district
+     * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function show(District $district)
+    public function show($id)
     {
         //
     }
@@ -54,10 +66,10 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\District  $district
+     * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function edit(District $district)
+    public function edit($id)
     {
         //
     }
@@ -66,22 +78,27 @@ class DistrictController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\District  $district
+     * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, District $district)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->all();
+        $municipal = $this-> municipalRepository->showData($id);
+        $municipal->update($requestData);
+        return response()->json($municipal,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\District  $district
+     * @param  \App\Municipal  $municipal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(District $district)
+    public function destroy($id)
     {
-        //
+        $this->municipalRepository->handleDelete($id);
+
+        return response()->json(null,204);
     }
 }

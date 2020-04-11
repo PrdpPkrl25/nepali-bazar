@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Location;
+namespace App\Http\Controllers\Api\Location;
 
 use App\Cakeapp\Location\Model\Locality;
 use App\Cakeapp\Location\Model\Municipal;

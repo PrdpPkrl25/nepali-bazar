@@ -20,8 +20,9 @@ Route ::middleware('auth:api') -> get('/user', function (Request $request) {
     return $request -> user();
 });
 
-Route ::namespace('Location') -> group(function () {
+Route ::namespace('Api/Location') -> group(function () {
     Route ::resource('wards', 'WardController');
+    Route ::resource('municipals', 'MunicipalController');
 });
 
 Route ::namespace('User') -> group(function () {
@@ -30,10 +31,6 @@ Route ::namespace('User') -> group(function () {
 
 Route ::namespace('Vendor') -> group(function () {
     Route ::resource('shops', 'ShopController');
-});
-
-Route ::namespace('Location') -> group(function () {
-    Route ::resource('municipals', 'MunicipalController');
 });
 
 Route ::namespace('Product') -> group(function () {

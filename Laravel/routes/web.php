@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route ::get('/', function () {
-    return view('welcome');
-});
+Route ::get('/admin', 'User\UserController@Welcome')->name('admin');
+
 
 
 //Auth ::routes();
@@ -30,7 +29,7 @@ Route::namespace('User') ->group(function (){
 });
 
 
-Route ::namespace('Location') -> group(function () {
+Route ::namespace('Web/Location') -> group(function () {
     Route ::get('/province', 'ProvinceController@index') -> name('province');
     Route ::get('/district', 'DistrictController@index') -> name('district');
     Route ::get('/municipal', 'MunicipalController@index') -> name('municipal');

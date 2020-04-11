@@ -99,6 +99,9 @@
     <div class="content">
         <div id="Cakeapp" class="title m-b-md">
 
+            <h2>Welcome to Cake App</h2>
+            <p>Your admin Email id is: {{$admin}}</p>
+
         </div>
     </div>
 </div>

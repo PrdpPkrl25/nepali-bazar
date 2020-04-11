@@ -14,6 +14,13 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+
+    public function Welcome(){
+        $admin=config('admin.AdminMail');
+        return view('welcome',compact('admin'));
+    }
+
+
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
