@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Locality extends Model
 {
     protected $table = 'localities';
-    protected $fillable = ['locality_name','municipal_id'];
+    protected $fillable = ['locality_name','ward_id'];
 
-    protected function municipal()
+    protected function ward()
     {
-        return $this->belongsTo(Municipal::class);
+        return $this->belongsTo(Ward::class);
     }
 
 

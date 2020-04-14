@@ -13,6 +13,7 @@ class ProvinceSeeder extends Seeder
      */
     public function run()
     {
+        DB ::table('provinces') -> truncate();
         $allProvinces=[
             ['province_name'=>'Province 1',
             'province_number'=> 1],

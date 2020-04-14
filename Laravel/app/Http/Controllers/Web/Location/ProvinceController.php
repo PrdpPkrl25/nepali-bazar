@@ -11,7 +11,7 @@ class ProvinceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -85,10 +85,10 @@ class ProvinceController extends Controller
         //
     }
 
-    public function provinceAll(province $province)
+    public function allProvince(province $province)
     {
-        $provinces=Province::all();
-        return view('home_province',compact('provinces'));
+        $provinces=Province::get();
+        return view('location.province.home_province',compact('provinces'));
     }
 
 

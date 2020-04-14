@@ -101,4 +101,10 @@ class WardController extends Controller
 
         return redirect('ward') -> with('flash_message', 'Ward deleted!');
     }
+
+    public function allWard(){
+        $municipalId=\request()->input('municipal');
+        $wards=Ward::where('municipal_id','=',$municipalId)->get();
+        return view('location.ward.home_ward',compact('wards'));
+    }
 }

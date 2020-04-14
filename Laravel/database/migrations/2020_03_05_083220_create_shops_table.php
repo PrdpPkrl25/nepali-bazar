@@ -21,7 +21,7 @@ class CreateShopsTable extends Migration
             $table->string('phone');
             $table->integer('number_of_flavour');
             $table->integer('owner_id');
-            $table->integer('municipal_id');
+            $table->integer('ward_id');
             $table->integer('locality_id')->nullable();
 
             $table->timestamps();

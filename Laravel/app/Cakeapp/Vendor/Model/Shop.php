@@ -11,7 +11,7 @@ class Shop extends Model
 {
     protected $table = 'shops';
 
-    protected $fillable = ['name','email','address','phone','number_of_flavour','owner_id','municipal_id','locality_id'];
+    protected $fillable = ['name','email','address','phone','number_of_flavour','owner_id','ward_id','locality_id'];
 
     protected function owner(){
         return $this->belongsTo(User::class,'user_id');

@@ -13,7 +13,7 @@ class LocalityController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class LocalityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -36,7 +36,7 @@ class LocalityController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreLocalityRequest $request)
     {
@@ -64,7 +64,7 @@ class LocalityController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Locality  $locality
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -79,7 +79,7 @@ class LocalityController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Locality  $locality
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StoreLocalityRequest $request, $id)
     {
@@ -93,13 +93,19 @@ class LocalityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Locality  $locality
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $locality= Locality::find($id);
         $locality->delete();
         return redirect()->route('locality');
+    }
+
+    public function allLocality(){
+        $wardId=\request()->input('ward');
+        $localities=Locality::where('ward_id','=',$wardId)->get();
+        return view('location.locality.home_locality',compact('localities'));
     }
 
 

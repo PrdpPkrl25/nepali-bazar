@@ -11,7 +11,7 @@ class DistrictController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -83,5 +83,11 @@ class DistrictController extends Controller
     public function destroy(District $district)
     {
         //
+    }
+
+    public function allDistrict(){
+        $provinceId=\request()->input('province');
+        $districts=District::where('province_id','=',$provinceId)->get();
+        return view('location.district.home_district',compact('districts'));
     }
 }

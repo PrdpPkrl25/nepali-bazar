@@ -101,4 +101,10 @@ class MunicipalController extends Controller
 
         return response()->json(null,204);
     }
+
+    public function allMunicipal(){
+        $districtId=\request()->input('district');
+        $municipals=Municipal::where('district_id','=',$districtId)->get();
+        return view('location.municipal.home_municipal',compact('municipals'));
+    }
 }

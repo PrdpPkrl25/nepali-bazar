@@ -3,13 +3,16 @@
 namespace App\Cakeapp\User\Model;
 
 use App\Mail\UserVerified;
+use App\Permission\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
 
+
 class User extends Authenticatable
 {
+    use HasPermissionsTrait;
     use Notifiable;
 
     /**
@@ -44,4 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+
+
+
+
 }
