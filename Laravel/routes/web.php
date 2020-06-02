@@ -15,19 +15,23 @@ use Illuminate\Support\Facades\Route;
 
 Route ::get('/admin', 'User\UserController@Welcome')->name('admin');
 
+Route::get('/',function (){
+    return view('welcome');
+});
 
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-//Auth ::routes();
-Route ::get('/home', 'HomeController@index') -> name('home');
 
 Route ::namespace('Vendor') -> group(function () {
-    Route ::resource('shops', 'ShopController');
+    Route ::get('shops/{product_id}', 'ShopController@index')->name('shops.select');
 });
 
 Route::namespace('User') ->group(function (){
     Route::resource('users','UserController');
 });
 
+Route::get('/roles', 'PermissionController@Permission');
 
 Route ::namespace('Web\Location') -> group(function () {
     Route ::get('/selectprovince', 'ProvinceController@allProvince') -> name('province.start');
@@ -35,25 +39,17 @@ Route ::namespace('Web\Location') -> group(function () {
     Route ::post('/selectmunicipal', 'MunicipalController@allMunicipal') -> name('municipal.start');
     Route ::post('/selectward', 'WardController@allWard') -> name('ward.start');
     Route ::post('/selectlocality', 'LocalityController@allLocality') -> name('locality.start');
-    Route::get('/roles', 'PermissionController@Permission');
+});
 
-    Route ::get('/district', 'DistrictController@index') -> name('district');
-    Route ::get('/municipal', 'MunicipalController@index') -> name('municipal');
-    Route ::get('/locality', 'LocalityController@index') -> name('locality');
-    Route ::get('/localitydetail', 'LocalityController@create') -> name('localitydetail');
-    Route ::post('/localitydetail', 'LocalityController@store') -> name('localitydetail.post');
-    Route ::get('/localityedit/{id}', 'LocalityController@edit') -> name('localityedit');
-    Route ::post('/localityupdate/{id}', 'LocalityController@update') -> name('localityedit.post');
-    Route ::get('/localitydelete/{id}', 'LocalityController@destroy') -> name('localitydelete');
+Route ::namespace('Web\Product') -> group(function () {
+    Route ::get('/products/create', 'ProductController@create')->name('products.create');
+    Route ::post('/products', 'ProductController@store')->name('products.store');
+    Route ::get('/products/{category_id}', 'ProductController@index')->name('products.select');
+
+});
+
+Route ::namespace('Web\Product') -> group(function () {
+    Route ::post('/selectcategory', 'CategoryController@index') -> name('category.select');
 });
 
 
-
-
-
-
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

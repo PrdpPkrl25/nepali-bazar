@@ -44169,7 +44169,7 @@ function isSameOriginFrame(iframe) {
     // to throw, e.g. if it has a cross-origin src attribute.
     // Safari will show an error in the console when the access results in "Blocked a frame with origin". e.g:
     // iframe.contentDocument.defaultView;
-    // A safety way is to access one of the cross origin properties: Window or Location
+    // A safety way is to access one of the cross origin properties: Window or location
     // Which might result in "SecurityError" DOM Exception and it is compatible to Safari.
     // https://html.spec.whatwg.org/multipage/browsers.html#integration-with-idl
     return typeof iframe.contentWindow.location.href === 'string';
@@ -61833,7 +61833,7 @@ function injectIntoDevTools(devToolsConfig) {
     // Enables DevTools to append owner stacks to error messages in DEV mode.
     getCurrentFiber:  function () {
       return current;
-    } 
+    }
   }));
 }
 var IsSomeRendererActing$1 = ReactSharedInternals.IsSomeRendererActing;

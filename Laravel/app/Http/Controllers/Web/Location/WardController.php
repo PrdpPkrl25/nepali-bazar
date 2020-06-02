@@ -36,7 +36,7 @@ class WardController extends Controller
     {
         $municipality = Municipal ::pluck('municipal_name', 'id') -> toArray();
 
-        return view('Location.ward.create', compact('municipality'));
+        return view('location.ward.create', compact('municipality'));
     }
 
     /**
@@ -73,7 +73,7 @@ class WardController extends Controller
     {
         $ward = $this-> wardRepository->showData($id);
 
-        return view('locality.ward.edit', compact('ward'));
+        return view('location.ward.edit', compact('ward'));
     }
 
     /**

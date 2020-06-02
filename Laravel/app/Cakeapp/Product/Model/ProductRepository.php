@@ -21,7 +21,11 @@ class ProductRepository extends Repository
 
     public function handleCreate($request)
     {
-        $product= $this->create($request->all());
+        if(isset($request->product_image_name)){
+            $image_name=$request->product_image_name->getClientOriginalName();
+            $request->product_image_name->storeAs('images/product',$image_name);
+        }
+        $product= $this->create($request->all()+['image_name'=>$image_name]);
         return $product;
     }
 

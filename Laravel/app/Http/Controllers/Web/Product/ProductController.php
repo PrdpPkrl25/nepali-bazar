@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Web\Product;
 
+use App\Cakeapp\Product\Model\Category;
 use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Product\Model\ProductRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\StoreProductPost;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,34 +22,36 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index($categoryId)
     {
-        return Product::all();
+        $products=Product::where('category_id','=',$categoryId)->get();
+        return view('product.product_category',compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $categories=Category::all();
+        return view('product.create_product',compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function store(StoreProductPost $request)
     {
-        $product = $this-> productRepository -> handleCreate($request);
 
-        return response()->json($product,201);
+        $product = $this-> productRepository -> handleCreate($request);
+        return view('welcome');
     }
 
     /**

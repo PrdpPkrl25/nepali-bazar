@@ -14,6 +14,7 @@ class MunicipalSeeder extends Seeder
     public function run()
     {
         DB ::table('municipals') -> truncate();
+
         $allMunicipal = [
             ['municipal_name' => 'Kohalpur', 'district_name' => 'Banke','number_of_wards'=>10],
             ['municipal_name' => 'Nepalgunj', 'district_name' => 'Banke','number_of_wards'=>15],

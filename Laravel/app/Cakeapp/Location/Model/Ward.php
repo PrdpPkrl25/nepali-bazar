@@ -27,16 +27,6 @@ class Ward extends Model
      */
     protected $fillable = ['municipal_id', 'ward_number'];
 
-    /*protected function getWardNumberAttribute($value)
-    {
-        return 'Ward '.$value;
-    }
-
-    protected function setWardNumberAttribute($value)
-    {
-        $this->attributes['ward_number']= $value + 3;
-    }*/
-
     protected function municipal()
     {
         return $this->belongsTo(Municipal::class,'municipal_id');

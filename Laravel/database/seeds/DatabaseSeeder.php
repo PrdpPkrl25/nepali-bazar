@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
                 DistrictSeeder::class,
                 MunicipalSeeder::class,
                 PermissionSeeder::class,
+                CategorySeeder::class,
+                WardSeeder::class,
+                UserSeeder::class,
+                ShopSeeder::class,
             ]
         );
         DB ::statement('SET FOREIGN_KEY_CHECKS = 1');

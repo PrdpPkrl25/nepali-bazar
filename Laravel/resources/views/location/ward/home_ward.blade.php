@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card align-content-between" style="margin: 20px;margin-top: 100px">
                     <div class="card-header">Select Your Ward:</div>
-                    <form method="post" action="{{route('locality.start')}}" style="margin: 20px">
+                    <form method="post" action="{{route('category.select')}}" style="margin: 20px">
                         @csrf
                         <div class="form-group row" >
 
