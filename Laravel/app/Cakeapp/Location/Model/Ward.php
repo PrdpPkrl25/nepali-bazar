@@ -27,7 +27,7 @@ class Ward extends Model
      */
     protected $fillable = ['municipal_id', 'ward_number'];
 
-    protected function municipal()
+    public function municipal()
     {
         return $this->belongsTo(Municipal::class,'municipal_id');
     }

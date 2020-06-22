@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route ::middleware('auth:api') -> get('/user', function (Request $request) {
+/*Route ::middleware('auth:api') -> get('/user', function (Request $request) {
     return $request -> user();
 });
 
@@ -34,10 +34,6 @@ Route ::namespace('Vendor') -> group(function () {
     Route ::resource('shops', 'ShopController');
 });
 
-Route ::namespace('Product') -> group(function () {
-    Route ::resource('products', 'ProductController');
-});
-
 Route ::namespace('Purchase') -> group(function () {
     Route ::resource('carts', 'CartController');
     Route ::resource('orders', 'OrderController');
@@ -50,6 +46,6 @@ Route ::namespace('Payment') -> group(function () {
 
 Route ::namespace('Delivery') -> group(function () {
     Route ::resource('deliveries', 'DeliveryController');
-});
+});*/
 
 

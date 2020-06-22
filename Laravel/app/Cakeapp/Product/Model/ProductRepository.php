@@ -21,6 +21,7 @@ class ProductRepository extends Repository
 
     public function handleCreate($request)
     {
+        $image_name=null;
         if(isset($request->product_image_name)){
             $image_name=$request->product_image_name->getClientOriginalName();
             $request->product_image_name->storeAs('images/product',$image_name);
@@ -32,6 +33,7 @@ class ProductRepository extends Repository
     public function showData($id)
     {
         $product = $this -> findOrFail($id);
+
         return $product;
     }
 

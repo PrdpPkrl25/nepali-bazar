@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cakeapp\Auth;
+namespace App\Cakeapp\User\Model;
 
 use App\Cakeapp\User\Model\User;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +10,11 @@ class Permission extends Model
     protected $table='permissions';
     protected $fillable=['name','label'];
 
-    protected function roles(){
-        return $this->belongsToMany(Role::class,'roles_permission');
+    public function roles(){
+        return $this->belongsToMany(Role::class,'roles_permissions');
     }
 
-    protected function users(){
-        return $this->belongsToMany(User::class,'users_permission');
+    public function users(){
+        return $this->belongsToMany(User::class,'users_permissions');
     }
 }

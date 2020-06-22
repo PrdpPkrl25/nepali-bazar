@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\Product;
 
-use App\Cakeapp\Product\MOdel\Category;
+use App\Cakeapp\Product\Model\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
+        $categories=Category::with('subCategories')->whereNull('main_category_id')->get();
         return view('product.select_category',compact('categories'));
     }
 

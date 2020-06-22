@@ -1,6 +1,6 @@
 <?php
 
-use App\Cakeapp\Auth\Permission;
+use App\Cakeapp\User\Model\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder

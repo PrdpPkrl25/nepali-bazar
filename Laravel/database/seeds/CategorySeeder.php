@@ -15,13 +15,21 @@ class CategorySeeder extends Seeder
         DB ::table('categories') -> truncate();
         $allCategories=[
             ['category_name'=>'Food','icon_name'=>'utensils'],
-            ['category_name'=>'Grocery','icon_name'=>'carrot'],
-            ['category_name'=>'Medicine','icon_name'=>'first-aid'],
-            ['category_name'=>'Stationery','icon_name'=>'table-tennis'],
-            ['category_name'=>'Electronics','icon_name'=>'mobile-alt'],
-            ['category_name'=>'Hardware','icon_name'=>'tools'],
             ['category_name'=>'Fast Food','main_category_name'=>'Food','icon_name'=>'hamburger'],
+            ['category_name'=>'Organic Food','main_category_name'=>'Food','icon_name'=>'apple-alt'],
             ['category_name'=>'Mo Mo','main_category_name'=>'Fast Food','icon_name'=>'egg'],
+            ['category_name'=>'Vegetable','main_category_name'=>'Organic Food','icon_name'=>'pepper-hot'],
+            ['category_name'=>'Grocery','icon_name'=>'carrot'],
+            ['category_name'=>'Cooking Oil','main_category_name'=>'Grocery','icon_name'=>'pepper-hot'],
+            ['category_name'=>'Medicine','icon_name'=>'first-aid'],
+            ['category_name'=>'Hand Sanitizer','main_category_name'=>'Medicine','icon_name'=>'pepper-hot'],
+            ['category_name'=>'Stationery','icon_name'=>'table-tennis'],
+            ['category_name'=>'Chart Paper','main_category_name'=>'Stationery','icon_name'=>'pepper-hot'],
+            ['category_name'=>'Electronics','icon_name'=>'mobile-alt'],
+            ['category_name'=>'Refregerator','main_category_name'=>'Electronics','icon_name'=>'pepper-hot'],
+            ['category_name'=>'Hardware','icon_name'=>'tools'],
+            ['category_name'=>'Cement','main_category_name'=>'Hardware','icon_name'=>'pepper-hot'],
+
         ];
 
         foreach ($allCategories as $category){

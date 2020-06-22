@@ -12,7 +12,7 @@ class Shop extends Model
 {
     protected $table = 'shops';
 
-    protected $fillable = ['name','email','address','phone','owner_id','ward_id','locality_id'];
+    protected $fillable = ['shop_name','email','phone_number','image_name','owner_id','province_id','district_id','municipal_id','ward_id','locality'];
 
     protected function owner(){
         return $this->belongsTo(User::class,'user_id');

@@ -5,7 +5,9 @@ namespace App\Cakeapp\Purchase\Model;
 
 
 use App\Cakeapp\Common\Eloquent\Repository;
-use App\Cakeapp\Purchase\Model\Cart;
+use App\Cakeapp\Purchase\Service\CartSevice;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartRepository extends Repository
 {
@@ -19,10 +21,22 @@ class CartRepository extends Repository
         return Cart::class;
     }
 
-    public function handleCreate($request)
+    public function handleCreate($request,$product_id)
     {
-        $cart = $this -> create($request -> all());
-        return $cart;
+          $createservice=new CartSevice();
+        if (Session::has('cart')){
+            $cart = Session::get('cart');
+        }
+        else{
+            $cart_array =['user_id'=>Auth::id()];
+            $cart=$this->create($cart_array);
+
+        }
+        $createservice->addProductInCart($product_id, $cart);
+        $cart=Cart::with('products')->find($cart->id);
+        session(['cart' => $cart]);
+
+
     }
 
     public function showData($id)

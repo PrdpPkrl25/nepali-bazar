@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card align-content-between" style="margin: 20px;margin-top: 100px">
                     <div class="card-header">Create Product</div>
-                    <form method="post" action="{{ route('products.store') }}" style="margin: 20px" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('product.store') }}" style="margin: 20px" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row" >
                             <div class="col-md-6 offset-md-3">

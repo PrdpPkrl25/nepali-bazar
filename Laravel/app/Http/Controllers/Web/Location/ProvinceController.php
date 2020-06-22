@@ -85,10 +85,10 @@ class ProvinceController extends Controller
         //
     }
 
-    public function allProvince(province $province)
+    public function allProvince()
     {
         $provinces=Province::get();
-        return view('location.province.home_province',compact('provinces'));
+        return view('location.index',compact('provinces'));
     }
 
 

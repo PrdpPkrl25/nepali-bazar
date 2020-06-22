@@ -14,9 +14,9 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
-            $table->dateTime('cart_date');
-            $table->integer('total_price');
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('total_price')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,8 @@ class CreateCartsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('carts');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

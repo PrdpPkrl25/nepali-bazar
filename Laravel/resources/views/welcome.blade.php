@@ -75,6 +75,8 @@
                 @if (Route::has('register'))
                     <a href="{{ route('register') }}">Register</a>
                 @endif
+
+                <a href="{{ route('location.select') }}">View as Guest</a>
             @endauth
         </div>
     @endif
@@ -83,7 +85,7 @@
         <div id="app" class="title m-b-md">
 
             <h2>Welcome to Cake App</h2>
-            <a class="btn btn-default btn-lg" href="{{route('province.start')}}">Start Searching</a>
+            <a class="btn btn-default btn-lg" href="{{route('login')}}">Start Searching</a>
 
         </div>
     </div>

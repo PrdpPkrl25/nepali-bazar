@@ -15,9 +15,10 @@ class WardSeeder extends Seeder
     {
         DB ::table('wards') -> truncate();
         $allWard = [
-            ['municipal_name' => 'Kohalpur', 'ward_number' => 11],
-            ['municipal_name' => 'Nepalgunj', 'ward_number' => 05],
-            ['municipal_name' => 'Gulariya','ward_number' => 10],
+            ['municipal_name' => 'Kohalpur Municipality', 'ward_number' => 1],
+            ['municipal_name' => 'Kohalpur Municipality', 'ward_number' => 2],
+            ['municipal_name' => 'Nepalgunj Sub-Metropolitan City', 'ward_number' => 9],
+            ['municipal_name' => 'Nepalgunj Sub-Metropolitan City', 'ward_number' => 10],
 
         ];
 

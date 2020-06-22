@@ -14,13 +14,13 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('category_id');
             $table->string('product_name');
             $table->string('image_name')->nullable();
             $table->integer('quantity');
             $table->string('measure_unit');
-            $table->integer('price');
+            $table->decimal('price');
             $table->timestamps();
         });
     }
@@ -32,6 +32,8 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('products');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

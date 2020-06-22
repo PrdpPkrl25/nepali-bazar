@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Permission;
+namespace App\Cakeapp\User\Permission;
 
 
 use App\Cakeapp\User\Model\Permission;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Purchase;
+namespace App\Http\Controllers\Web\Purchase;
 
 use App\Cakeapp\Purchase\Model\Order;
 use App\Cakeapp\Purchase\Model\OrderRepository;

@@ -5,6 +5,7 @@ namespace App\Cakeapp\Vendor\Model;
 
 
 use App\Cakeapp\Common\Eloquent\Repository;
+use Illuminate\Support\Facades\Auth;
 
 class ShopRepository extends Repository
 {
@@ -24,7 +25,12 @@ class ShopRepository extends Repository
 
     public function handleCreate($request)
     {
-        $shop = $this -> create($request -> all());
+        $image_name=null;
+        if(isset($request->shop_image_name)){
+            $image_name=$request->shop_image_name->getClientOriginalName();
+            $request->shop_image_name->storeAs('images/shop',$image_name);
+        }
+        $shop = $this -> create($request -> all() + ['image_name'=>$image_name,'owner_id'=>Auth::id()]);
         return $shop;
     }
 

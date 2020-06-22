@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Cakeapp\Auth\Permission;
+use App\Cakeapp\User\Model\Permission;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;

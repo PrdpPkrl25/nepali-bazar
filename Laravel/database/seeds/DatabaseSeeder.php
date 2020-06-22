@@ -1,5 +1,6 @@
 <?php
 
+use App\Cakeapp\Product\Model\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,9 +19,10 @@ class DatabaseSeeder extends Seeder
                 MunicipalSeeder::class,
                 PermissionSeeder::class,
                 CategorySeeder::class,
-                WardSeeder::class,
+                RoleSeeder::class,
+                ProductSeeder::class,
                 UserSeeder::class,
-                ShopSeeder::class,
+
             ]
         );
         DB ::statement('SET FOREIGN_KEY_CHECKS = 1');

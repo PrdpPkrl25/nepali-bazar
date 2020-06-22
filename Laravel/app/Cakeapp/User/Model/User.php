@@ -3,7 +3,7 @@
 namespace App\Cakeapp\User\Model;
 
 use App\Mail\UserVerified;
-use App\Permission\HasPermissionsTrait;
+use App\Cakeapp\User\Permission\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,9 +20,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name','number', 'email', 'password',
-    ];
+    protected $fillable = ['name','phone_number', 'email', 'password','province_id','district_id','municipal_id','ward_id','locality'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +34,7 @@ class User extends Authenticatable
     protected static function booted(){
         static::created(function ($user)
         {
-            Mail::to($user)->send(new UserVerified($user));
+           // Mail::to($user)->send(new UserVerified($user));
         });
     }
     /**

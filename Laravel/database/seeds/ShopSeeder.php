@@ -20,7 +20,7 @@ class ShopSeeder extends Seeder
         $allShop= [
             ['name'=>'Bindabasini', 'email'=>'b@gmail.com','address'=>'Kohalpur','phone'=>'12345','owner_name'=>'Pradip','municipal_name'=>'Kohalpur','ward_number'=>11],
             ['name'=>'Laliguras', 'email'=>'l@gmail.com','address'=>'Nepalgunj','phone'=>'98480','owner_name'=>'Prakash','municipal_name'=>'Nepalgunj','ward_number'=>05],
-            ['name'=>'CakeShop', 'email'=>'c@gmail.com','address'=>'Gulariya','phone'=>'98025','owner_name'=>'Narayan','municipal_name'=>'Gulariya','ward_number'=>10],
+            ['name'=>'CakeShop', 'email'=>'c@gmail.com','address'=>'Gulariya','phone'=>'98025','owner_name'=>'Narayan','municipal_name'=>'Kohalpur','ward_number'=>10],
 
         ];
 

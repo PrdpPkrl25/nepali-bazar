@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Vendor;
+namespace App\Http\Controllers\Web\Vendor;
 
 use App\Cakeapp\Vendor\Model\OwnerRepository;
 use App\Http\Resources\Vendor\OwnerCollection;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Vendor;
+namespace App\Http\Controllers\Web\Vendor;
 
 use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Vendor\Model\ShopRepository;
