@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User;
 
-use App\Cakeapp\Auth\Permission;
+use App\Cakeapp\User\Model\Permission;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -14,6 +14,7 @@ class CartController extends Controller
     public function __construct(CartRepository $cartRepository)
     {
         $this -> cartRepository = $cartRepository;
+        $this->middleware('auth');
     }
 
 
@@ -44,11 +45,11 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$product_id)
     {
-        $cart = $this -> cartRepository -> handleCreate($request);
 
-        return response()->json($cart,200);
+        $cart = $this -> cartRepository -> handleCreate($request,$product_id);
+        return $cart;
     }
 
     /**

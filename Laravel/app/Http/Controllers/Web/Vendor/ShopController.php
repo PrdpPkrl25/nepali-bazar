@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Vendor\Model\ShopRepository;
 use App\Http\Resources\Vendor\ShopCollection;
 use App\Http\Resources\Vendor\ShopResource;
@@ -39,21 +40,24 @@ class ShopController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
+        $this->checkAllowedAccessForController('create-shop');
+        $allProvince = Province::get();
+        return view(' shop.create_shop', compact('allProvince'));
     }
 
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(StoreShopRequest $request)
     {
         $shop = $this -> shopRepository -> handleCreate($request);
-        return response()->json($shop,200);
+        return view('home');
     }
 
     /**

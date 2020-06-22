@@ -4,8 +4,8 @@
 namespace App\Permission;
 
 
-use App\Cakeapp\Auth\Permission;
-use App\Cakeapp\Auth\Role;
+use App\Cakeapp\User\Model\Permission;
+use App\Cakeapp\User\Model\Role;
 use phpDocumentor\Reflection\Types\Null_;
 
 trait HasPermissionsTrait
