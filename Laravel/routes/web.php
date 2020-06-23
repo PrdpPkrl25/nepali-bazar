@@ -57,6 +57,7 @@ Route ::namespace('Web\Location') -> group(function () {
 Route ::namespace('Web\Purchase') -> group(function () {
     Route ::get('/cart', 'CartController@show') -> name('cart.show');
     Route ::post('/cart/{product_id}', 'CartController@store') -> name('cart.store');
+    Route ::post('/cart/{product_id}', 'CartController@update') -> name('cart.update');
 });
 
 

@@ -65,12 +65,15 @@ class CartController extends Controller
     {
         if (session()->has('cart')){
             $cart = session()->get('cart');
-            $total_price=0;
+            $total_price=0.00;
             foreach($cart->products as $product){
                 $total_price=$product->pivot->net_price + $total_price;
             }
          return view('purchase.cart.show_cart',compact('cart','total_price'));
        }
+        else{
+            return view('purchase.cart.empty_cart');
+        }
 
     }
 
@@ -94,10 +97,7 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $requestData = $request->all();
-        $cart = $this-> cartRepository->showData($id);
-        $cart->update($requestData);
-        return response()->json($cart,200);
+
     }
 
     /**
