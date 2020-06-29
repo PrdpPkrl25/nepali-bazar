@@ -35,8 +35,6 @@ class CartRepository extends Repository
         $createservice->addProductInCart($product_id, $cart);
         $cart=Cart::with('products')->find($cart->id);
         session(['cart' => $cart]);
-
-
     }
 
     public function showData($id)

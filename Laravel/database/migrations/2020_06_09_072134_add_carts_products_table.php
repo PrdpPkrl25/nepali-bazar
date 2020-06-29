@@ -18,10 +18,10 @@ class AddCartsProductsTable extends Migration
             $table->unsignedInteger('cart_id');
             $table->unsignedInteger('product_id');
             $table->decimal('quantity');
-            $table->decimal('price_per_quantity');
+            $table->decimal('price_per_base_quantity');
             $table->string('measure_unit');
             $table->decimal('price');
-            $table->decimal('discount_price')->nullable();
+            $table->decimal('discount_price')->default(0);
             $table->decimal('net_price');
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

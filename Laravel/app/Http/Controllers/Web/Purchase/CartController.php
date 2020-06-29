@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Purchase;
 
+use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Purchase\Model\Cart;
 use App\Cakeapp\Purchase\Model\CartRepository;
 use App\Http\Controllers\Controller;
@@ -19,8 +20,6 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
-
-
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +29,7 @@ class CartController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,11 +41,12 @@ class CartController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laracasts\Flash\FlashNotifier
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View
      */
     public function store(Request $request,$product_id)
     {
@@ -54,6 +55,7 @@ class CartController extends Controller
 
         return View::make('partials/flash-messages');
     }
+
 
     /**
      * Display the specified resource.
@@ -77,39 +79,70 @@ class CartController extends Controller
 
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
+     * @param Cart $cart
+     * @return void
      */
     public function edit(Cart $cart)
     {
         //
     }
 
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
+     * @param $cart_id
+     * @param $product_id
+     * @return false|string
      */
-    public function update(Request $request, $id)
+    public function update($cart_id, $product_id)
     {
+        $quantity=request()->input('quantity');
+        $cart=Cart::where('id',$cart_id)->first();
+        $product=Product::where('id',$product_id)->first();
+        $base_price=$product->price;
+        $base_quantity=$product->base_quantity;
+        $price=($quantity/$base_quantity) * $base_price;
+        $net_price=round($price,2);
+        $cart->products()->updateExistingPivot($product_id,['quantity'=>$quantity,'price'=>$price,'net_price'=>$net_price]);
+        session()->forget('cart');
+        session()->put('cart',$cart);
+        $total_price=0.00;
+        foreach($cart->products as $product){
+            $total_price=$product->pivot->net_price + $total_price;
+        }
+        return json_encode(array('net_price'=>$net_price, 'total_price'=>$total_price));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return void
+     */
+    public function delete($cart_id, $product_id)
+    {
+        $cart=Cart::where('id',$cart_id)->first();
+        $cart->products()->detach($product_id);
+        session()->forget('cart');
+        session()->put('cart',$cart);
+        return 'success';
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return void
      */
     public function destroy($id)
     {
         $this -> cartRepository -> handleDelete($id);
 
-        return response()->json(null,204);
     }
 }
