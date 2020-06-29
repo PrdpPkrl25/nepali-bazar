@@ -17,8 +17,9 @@
                                 <div class="col-md-4  text-right ">
                                     <div class="card bg-light  text-center" style="cursor: pointer;margin-top: 10px" >
                                             <div class="card-body">
-                                                <h2 class="product-title">{{$product->product_name}}, {{$product->quantity}} {{$product->measure_unit}} </h2>
+                                                <h2 class="product-title">{{$product->product_name}}, {{$product->base_quantity}} {{$product->measure_unit}} </h2>
                                                 <h2 class="product-price">Price: Rs {{$product->price}} </h2>
+                                                <h2 class="shop-name">by <a href="{{route('shop.select',$shop->id)}}">{{$shop->shop_name}}</a> </h2>
                                                 <button class="btn btn-warning mt-2" id="{{$product->id}}">Add to Cart</button>
                                             </div>
                                         </a>

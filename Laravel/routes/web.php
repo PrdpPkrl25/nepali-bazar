@@ -39,7 +39,7 @@ Route ::namespace('Web\User') -> group(function () {
 Route ::namespace('Web\Vendor') -> group(function () {
     Route ::get('shops/create', 'ShopController@create')->name('shops.create');
     Route ::post('shops', 'ShopController@store')->name('shops.store');
-    Route ::get('shops/{product_id}', 'ShopController@show')->name('shops.select');
+    Route ::get('shop/{shop_id}', 'ShopController@show')->name('shop.select');
 });
 
 Route ::namespace('Web\Ajax') -> group(function () {

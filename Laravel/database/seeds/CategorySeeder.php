@@ -17,7 +17,6 @@ class CategorySeeder extends Seeder
             ['category_name'=>'Food','icon_name'=>'utensils'],
             ['category_name'=>'Fast Food','main_category_name'=>'Food','icon_name'=>'hamburger'],
             ['category_name'=>'Organic Food','main_category_name'=>'Food','icon_name'=>'apple-alt'],
-            ['category_name'=>'Mo Mo','main_category_name'=>'Fast Food','icon_name'=>'egg'],
             ['category_name'=>'Vegetable','main_category_name'=>'Organic Food','icon_name'=>'pepper-hot'],
             ['category_name'=>'Grocery','icon_name'=>'carrot'],
             ['category_name'=>'Cooking Oil','main_category_name'=>'Grocery','icon_name'=>'pepper-hot'],

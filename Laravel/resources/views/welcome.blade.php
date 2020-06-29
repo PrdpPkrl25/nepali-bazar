@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Cakeapp</title>
+
+    <script type="text/javascript" src="js/app.js"></script>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -68,7 +70,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a href="{{ url('/home') }}">Home</a>
+                <a href="{{ route('home') }}">Home</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
 
@@ -91,5 +93,5 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="js/app.js"></script>
+
 </html>

@@ -31,8 +31,8 @@
 
                         <div class="form-group row" >
                             <div class="col-md-6 offset-md-3">
-                                <strong>Quantity:</strong>
-                                <input type="text" name="quantity"  class="form-control mt-2" placeholder="Enter Quantity">
+                                <strong>Base Quantity:</strong>
+                                <input type="text" name="base_quantity"  class="form-control mt-2" placeholder="Enter Quantity">
                             </div>
                         </div>
 
@@ -47,6 +47,17 @@
                             <div class="col-md-6 offset-md-3">
                                 <strong>Price:</strong>
                                 <input type="text" name="price"  class="form-control mt-2" placeholder="Enter Price">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" >
+                            <div class="col-md-6 offset-md-3">
+                                <strong>Product Of:</strong>
+                                <select id="category_id" name="category_id" class="form-control mt-2">
+                                    @foreach($shops as $shop)
+                                        <option value="{{$shop->id}}">{{$shop->shop_name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

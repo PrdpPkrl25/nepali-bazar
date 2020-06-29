@@ -8,6 +8,7 @@ use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Product\Model\ProductRepository;
 use App\Cakeapp\User\Permission\CheckPermissionTrait;
 
+use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductPost;
 use Illuminate\Http\Request;
@@ -50,7 +51,8 @@ class ProductController extends Controller
     {
             $this->checkAllowedAccessForController('create-product');
             $categories=Category::all();
-            return view('product.create_product',compact('categories'));
+            $shops=Shop::where('owner_id',Auth::id())->get();
+            return view('product.create_product',compact('categories','shops'));
 
     }
 
@@ -65,7 +67,7 @@ class ProductController extends Controller
         $user=Auth::user();
         if($user->can('create-product')){
             $product = $this-> productRepository -> handleCreate($request);
-            return view('welcome');
+            return view('home');
         }
         else{
             return redirect()->back() ->with('error','You have no permission for this page!');;
@@ -77,17 +79,18 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
 
         $product=Product::where('id',$id)->first();
-
+        $shop_id=$product->shop_id;
+        $shop=Shop::where('id',$shop_id)->first();
         event(new VisitProduct($product));
 
-        return view('product.show_product',compact('product'));
+        return view('product.show_product',compact('shop','product'));
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Vendor;
 
 use App\Cakeapp\Location\Model\Province;
+use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Vendor\Model\ShopRepository;
 use App\Http\Resources\Vendor\ShopCollection;
 use App\Http\Resources\Vendor\ShopResource;
@@ -62,13 +63,14 @@ class ShopController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param $shop_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($shop_id)
     {
-       $shop = $this -> shopRepository -> showData($id);
-       return new ShopResource($shop);
+       $shop = $this -> shopRepository -> getData($shop_id);
+       $products=Product::where('shop_id',$shop_id)->paginate(12);
+       return view('shop.shop_profile',compact('shop','products'));
     }
 
     /**

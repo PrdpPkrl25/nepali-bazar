@@ -16,9 +16,8 @@
 }
 
 .product-title{
-    font-size: 150%;
-    font-weight: 400;
-    color: #686868;
+    font-size: 160%;
+    font-weight: 500;
     width: 100%;
 }
 
@@ -26,6 +25,12 @@
     font-size: 130%;
     font-weight: 400;
     width: 100%;
+}
+.shop-name{
+    font-size: 130%;
+    font-weight: 400;
+    width: 100%;
+    color: #686868;
 }
 
 .product-name{
