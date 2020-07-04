@@ -27,6 +27,8 @@ Route ::namespace('Auth') -> group(function () {
 // Registration Routes...
 Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'RegisterController@register');
+Route::get('auth/redirect/{provider}', 'LoginController@redirectToProvider')->name('redirect.provider');
+Route::get('auth/callback/{provider}', 'LoginController@handleProviderCallback')->name('callback.provider');
 
 });
 

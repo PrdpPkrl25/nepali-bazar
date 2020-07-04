@@ -30,4 +30,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => 'xxxx',
+        'client_secret' => 'xxx',
+        'redirect' => 'cakeapp.test/web/callback/google',
+    ],
+
+
+    'facebook' => [
+        'client_id' => '288031672398577',
+        'client_secret' => '8fa49d7e80b107f128a8ea246d82b88c',
+        'redirect' => 'https://cakeapp.test/web/auth/callback/facebook',
+    ],
+
 ];

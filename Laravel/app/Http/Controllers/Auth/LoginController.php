@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Cakeapp\User\Events\UserAuthenticated;
+
+use App\Cakeapp\User\Model\User;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -44,6 +48,27 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function redirectToProvider($provider) {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function handleProviderCallback($provider) {
+        try {
+            $user = Socialite::driver($provider)->user();
+            $finduser = User::where('provider_id', $user->id)->first();
+            if ($finduser) {
+                Auth::login($finduser);
+                return redirect('/web/home');
+            } else {
+                $newUser = User::create(['name' => $user->name, 'email' => $user->email,'provider' => $provider, 'provider_id' => $user->id]);
+                Auth::login($newUser);
+                return redirect()->back();
+            }
+        }
+        catch(Exception $e) {
+            return redirect('web/auth/redirect/'.$provider);
+        }
+    }
     /**
      * Handle a login request to the application.
      *

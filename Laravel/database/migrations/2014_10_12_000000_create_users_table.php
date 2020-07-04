@@ -17,15 +17,17 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->integer('province_id');
-            $table->integer('district_id');
-            $table->integer('municipal_id');
-            $table->integer('ward_id');
+            $table->string('phone_number')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->integer('province_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->integer('municipal_id')->nullable();
+            $table->integer('ward_id')->nullable();
             $table->string('locality')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('password')->nullable();;
+            $table->rememberToken()->nullable();;
             $table->timestamps();
         });
     }
