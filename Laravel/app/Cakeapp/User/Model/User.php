@@ -2,6 +2,9 @@
 
 namespace App\Cakeapp\User\Model;
 
+use App\Cakeapp\Location\Model\District;
+use App\Cakeapp\Location\Model\Municipal;
+use App\Cakeapp\Location\Model\Ward;
 use App\Mail\UserVerified;
 use App\Cakeapp\User\Permission\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,6 +49,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function district(){
+        return $this->belongsTo(District::class,'district_id');
+    }
+
+    public function municipal(){
+        return $this->belongsTo(Municipal::class,'municipal_id');
+    }
+
+    public function ward(){
+        return $this->belongsTo(Ward::class,'ward_id');
+    }
 
 
 

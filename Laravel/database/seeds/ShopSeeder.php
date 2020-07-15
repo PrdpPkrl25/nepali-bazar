@@ -18,9 +18,9 @@ class ShopSeeder extends Seeder
     {
         DB ::table('shops') -> truncate();
         $allShop= [
-            ['name'=>'Bindabasini', 'email'=>'b@gmail.com','address'=>'Kohalpur','phone'=>'12345','owner_name'=>'Pradip','municipal_name'=>'Kohalpur','ward_number'=>11],
-            ['name'=>'Laliguras', 'email'=>'l@gmail.com','address'=>'Nepalgunj','phone'=>'98480','owner_name'=>'Prakash','municipal_name'=>'Nepalgunj','ward_number'=>05],
-            ['name'=>'CakeShop', 'email'=>'c@gmail.com','address'=>'Gulariya','phone'=>'98025','owner_name'=>'Narayan','municipal_name'=>'Kohalpur','ward_number'=>10],
+            ['shop_name'=>'Bindabasini', 'email'=>'b@gmail.com','phone_number'=>'12345','province_id'=>5,'district_id'=>47,'owner_name'=>'Pradip','municipal_name'=>'Kohalpur','ward_number'=>11],
+            ['shop_name'=>'Laliguras', 'email'=>'l@gmail.com','phone_number'=>'12345','province_id'=>5,'district_id'=>47,'owner_name'=>'Prakash','municipal_name'=>'Nepalgunj','ward_number'=>05],
+            ['shop_name'=>'Pashupati', 'email'=>'p@gmail.com','phone_number'=>'12345','province_id'=>5,'district_id'=>47,'owner_name'=>'Narayan','municipal_name'=>'Kohalpur','ward_number'=>10],
 
         ];
 
@@ -35,7 +35,7 @@ class ShopSeeder extends Seeder
             $ward_number= $shop['ward_number'];
             $ward_object=Ward::where(['ward_number'=>$ward_number,'municipal_id'=>$municipal_id])->first();
             $ward_id = $ward_object->id;
-            $shop_array=['name'=>$shop['name'],'email'=>$shop['email'],'address'=>$shop['address'],'phone'=>$shop['phone'],'owner_id'=>$owner_id,'ward_id'=>$ward_id];
+            $shop_array=['shop_name'=>$shop['shop_name'],'email'=>$shop['email'],'phone_number'=>$shop['phone_number'],'owner_id'=>$owner_id,'province_id'=>$shop['province_id'],'district_id'=>$shop['district_id'],'municipal_id'=>$municipal_id,'ward_id'=>$ward_id];
             Shop::create($shop_array);
         }
     }

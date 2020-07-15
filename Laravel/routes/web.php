@@ -15,20 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/',function (){
-    return view('welcome');
-});
+/*Route::get('/',function (){
+    return view('home');
+});*/
+
+Route::get('/', 'HomeController@index')->name('welcome');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes((['register' => false]));
+
+Auth::routes();
 
 Route ::namespace('Auth') -> group(function () {
-// Registration Routes...
-Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'RegisterController@register');
-Route::get('auth/redirect/{provider}', 'LoginController@redirectToProvider')->name('redirect.provider');
-Route::get('auth/callback/{provider}', 'LoginController@handleProviderCallback')->name('callback.provider');
+Route::get('auth/redirect/{provider}', 'LoginController@redirectToProvider')->name('provider.redirect');
+Route::get('auth/callback/{provider}', 'LoginController@handleProviderCallback')->name('provider.callback');
 
 });
 
@@ -61,6 +61,8 @@ Route ::namespace('Web\Purchase') -> group(function () {
     Route ::post('/cart/{product_id}', 'CartController@store') -> name('cart.store');
     Route ::post('/cart/{cart_id}/{product_id}', 'CartController@update') -> name('cart.update');
     Route ::post('/cart/delete/{cart_id}/{product_id}', 'CartController@delete') -> name('cart.delete');
+    Route ::get('/checkout/create', 'OrderController@create') -> name('order.create');
+    Route ::post('/checkout', 'OrderController@store') -> name('order.store');
 });
 
 

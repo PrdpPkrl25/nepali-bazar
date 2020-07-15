@@ -7,9 +7,13 @@ use App\Cakeapp\Location\Model\Province;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Cakeapp\User\Model\User;
+use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends Controller
 {
@@ -42,6 +46,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -77,11 +82,5 @@ class RegisterController extends Controller
             'locality' => $data['locality'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    public function showRegistrationForm()
-    {
-        $allProvince = Province::get();
-        return view('auth.register', compact('allProvince'));
     }
 }

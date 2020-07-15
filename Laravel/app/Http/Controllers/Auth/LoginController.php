@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -45,7 +46,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('guest')->except('logout');
+
     }
 
     public function redirectToProvider($provider) {
@@ -55,18 +58,22 @@ class LoginController extends Controller
     public function handleProviderCallback($provider) {
         try {
             $user = Socialite::driver($provider)->user();
-            $finduser = User::where('provider_id', $user->id)->first();
-            if ($finduser) {
-                Auth::login($finduser);
+            $findUser = User::where('email', $user->email)->whereNotNull('provider_id')->first();
+            if ($findUser) {
+                Auth::login($findUser);
                 return redirect('/web/home');
             } else {
-                $newUser = User::create(['name' => $user->name, 'email' => $user->email,'provider' => $provider, 'provider_id' => $user->id]);
-                Auth::login($newUser);
-                return redirect()->back();
+                    $checkUser = User::updateOrCreate(
+                        ['email' => $user->email],
+                        ['name'=>$user->name,'provider'=>$provider,'provider_id' => $user->id]);
+                Auth::login($checkUser);
+                return redirect('/web/home');
+
             }
-        }
-        catch(Exception $e) {
-            return redirect('web/auth/redirect/'.$provider);
+      }
+      catch(Exception $e) {
+          flash($e->getMessage())->warning();
+          return redirect()->back();
         }
     }
     /**
@@ -117,7 +124,7 @@ class LoginController extends Controller
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect('/web/login');
+            : redirect('/web/home');
     }
 
 

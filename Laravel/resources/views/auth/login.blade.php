@@ -1,18 +1,37 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+<body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
+        <div class="col-md-8">
+            <div class="card" style="margin-top: 100px;padding: 50px">
                 <div class="card-header">{{ __('Login to Cakeapp') }}</div>
 
-                <div class="card-body">
+                <div class="card-body" style="background-color: rgba(0,0,0,.75);">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <div class="col-md-4 offset-md-4">
+                        <div class="form-group row mt-4">
+                            <div class="col-md-6 offset-md-3">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -24,8 +43,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-4 offset-md-4">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}" name="password" required autocomplete="current-password">
+                            <div class="col-md-6 offset-md-3">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" width="80%" placeholder="{{ __('Password') }}" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -37,19 +56,19 @@
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <div class="form-check ml-3">
+                                    <input class="form-check-input " type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label" for="remember" style="color:white ">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="form-group row mb-0 mt-2">
+                            <div class="col-md-8 offset-md-3">
+                                <button type="submit" class="btn btn-primary ml-4">
                                     {{ __('Login') }}
                                 </button>
 
@@ -61,15 +80,32 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0 mt-2">
-                            <div class="col-md-8 offset-md-5">
-                                <a href="{{ url('web/auth/redirect/google') }}" class="btn btn-danger"><i class="fab fa-google"></i> Login With Google</a>
+
+
+
+                        <hr style="height:1.5px;border-width:0;color:gray;background-color:gray;width: 60%;">
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                @if (Route::has('register'))
+                                    <a class="btn btn-link ml-4" href="{{ route('register') }}">
+                                        {{ __('New here? Sign up') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+
+                        <span class="offset-md-6" style="color: white">Or,</span>
+
+                        <div class="form-group row mb-0 mt-3">
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ url('web/auth/redirect/google') }}" class="btn btn-danger  "><i class="fab fa-google"></i> &nbsp;&nbsp;Login With Google &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0 mt-2">
-                            <div class="col-md-8 offset-md-5">
-                                <a href="{{ url('web/auth/redirect/facebook') }}" class="btn btn-primary"><i class="fab fa-facebook"></i> Login With Facebook</a>
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ url('web/auth/redirect/facebook') }}" class="btn btn-primary "><i class="fab fa-facebook"></i> &nbsp;&nbsp;Login With Facebook&nbsp;&nbsp;</a>
                             </div>
                         </div>
                     </form>
@@ -78,4 +114,5 @@
         </div>
     </div>
 </div>
-@endsection
+</body>
+</html>

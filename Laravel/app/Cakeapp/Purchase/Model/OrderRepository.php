@@ -6,6 +6,9 @@ namespace App\Cakeapp\Purchase\Model;
 
 use App\Cakeapp\Common\Eloquent\Repository;
 use App\Cakeapp\Purchase\Model\Order;
+use App\Cakeapp\Purchase\Service\OrderService;
+use App\Cakeapp\User\Model\User;
+use Illuminate\Support\Facades\Auth;
 
 class OrderRepository extends Repository
 {
@@ -21,8 +24,19 @@ class OrderRepository extends Repository
 
     public function handleCreate($request)
     {
-        $order = $this -> create($request -> all());
-        return $order;
+
+        if (session()->has('cart')) {
+            $createOrder=new OrderService();
+            $createOrder->createOrder($request);
+            session()->forget('cart');
+        }
+
+        else{
+            flash('Your session time is over. Create your cart again.')->message();
+            return redirect()->back();
+        }
+
+
     }
 
     public function showData($id)

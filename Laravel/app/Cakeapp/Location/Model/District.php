@@ -9,7 +9,7 @@ class District extends Model
     protected $table = 'districts';
     protected $fillable = ['district_name','province_id'];
 
-    protected function province()
+   public function province()
     {
         return $this->belongsTo(Province::class);
     }

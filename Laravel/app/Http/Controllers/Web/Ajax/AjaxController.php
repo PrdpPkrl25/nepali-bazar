@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Web\Ajax;
 use App\Cakeapp\Location\Model\District;
 use App\Cakeapp\Location\Model\Municipal;
 use App\Cakeapp\Location\Model\Ward;
+use App\Cakeapp\User\Model\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
@@ -33,7 +35,7 @@ class AjaxController extends Controller
         $districtId=\request()->input('district_id');
         $municipalId=\request()->input('municipal_id');
         $wardId=\request()->input('ward_id');
-
-        return route('category.select');
+        User::where('id',Auth::id())->update(['province_id'=>$provinceId,'district_id'=>$districtId,'municipal_id'=>$municipalId,'ward_id'=>$wardId]);
+        return route('home');
     }
 }
