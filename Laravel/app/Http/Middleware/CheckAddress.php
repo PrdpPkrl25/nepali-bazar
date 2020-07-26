@@ -18,7 +18,7 @@ class CheckAddress
     public function handle($request, Closure $next)
     {
 
-            if($request->user()&&!($request->user()->province_id||$request->user()->district_id||$request->user()->municipal_id||$request->user()->ward_id)){
+            if($request->user()&&!($request->user()->province_id||$request->user()->district_id||$request->user()->municipal_id||$request->user()->ward_id||$request->user()->locality)){
                 return redirect()->route('location.select');
             }
 

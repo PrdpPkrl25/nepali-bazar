@@ -21,7 +21,7 @@ class CartRepository extends Repository
         return Cart::class;
     }
 
-    public function  handleCreate($request,$product_id)
+    public function  handleCreate($product_id)
     {
           $createservice=new CartSevice();
         if (Session::has('cart')){

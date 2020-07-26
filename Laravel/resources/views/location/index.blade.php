@@ -46,6 +46,17 @@
                             </div>
                         </div>
 
+                    <div class="form-group row mb-4" >
+                        <div class="col-md-6 offset-md-3">
+                            <input id="locality" type="text" name="locality" class="form-control" placeholder="Enter Locality and Landmark" required autocomplete="locality" autofocus>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary shadow border mt-4 offset-md-5">
+                            {{ __('Submit') }}
+                        </button>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -122,27 +133,32 @@
                     }});
             });
 
-            jQuery('#ward').change(function(e){
+        });
+
+        $(document).ready(function () {
+            $(".btn").on('click',function (e) {
                 e.preventDefault();
-                jQuery.ajax({
-                    url: "{{ url('/web/ajax/postlocation') }}",
-                    method: 'POST',
+                $.ajax({
+                    type: 'POST',
+                    url: '/web/ajax/postlocation' ,
                     headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    dataType: 'html',
                     data: {
                         province_id: jQuery('#province').val(),
                         district_id: jQuery('#district').val(),
                         municipal_id: jQuery('#municipal').val(),
                         ward_id: jQuery('#ward').val(),
+                        locality: jQuery('#locality').val(),
                     },
-                    success: function(response){
-                        $(function () {
-                                    window.location.replace(response);
-                        });
+                    success: function (response) {
+                        window.location.replace(response);
 
-                    }});
+                    },
+                })
+                ;
             });
-
         });
+
 
     </script>
 @endsection

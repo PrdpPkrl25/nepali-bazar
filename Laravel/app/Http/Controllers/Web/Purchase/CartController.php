@@ -46,12 +46,13 @@ class CartController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param $product_id
      * @return \Illuminate\Contracts\View\View
      */
-    public function store(Request $request,$product_id)
+    public function store($product_id)
     {
 
-        $this -> cartRepository -> handleCreate($request,$product_id);
+        $this -> cartRepository -> handleCreate($product_id);
 
         return View::make('partials/flash-messages');
     }

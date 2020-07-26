@@ -15,17 +15,13 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
 
-    public function Welcome(){
-        $admin=config('admin.AdminMail');
-        return view('welcome',compact('admin'));
-    }
-
 
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
         $this -> userRepository = $userRepository;
+        $this->middleware('auth');
     }
 
     /**
@@ -73,10 +69,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show()
     {
-        $user = $this-> userRepository->showData($id);
-        return new UserResource($user);
+        $user = $this-> userRepository->showData();
+        return view('user.profile.user_profile',compact('user'));
     }
 
     /**

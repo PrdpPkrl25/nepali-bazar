@@ -35,7 +35,8 @@ class AjaxController extends Controller
         $districtId=\request()->input('district_id');
         $municipalId=\request()->input('municipal_id');
         $wardId=\request()->input('ward_id');
-        User::where('id',Auth::id())->update(['province_id'=>$provinceId,'district_id'=>$districtId,'municipal_id'=>$municipalId,'ward_id'=>$wardId]);
+        $locality=\request()->input('locality');
+        User::where('id',Auth::id())->update(['province_id'=>$provinceId,'district_id'=>$districtId,'municipal_id'=>$municipalId,'ward_id'=>$wardId,'locality'=>$locality]);
         return route('home');
     }
 }

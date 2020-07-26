@@ -5,6 +5,7 @@ namespace App\Cakeapp\User\Model;
 
 use App\Cakeapp\Common\Eloquent\Repository;
 use App\Mail\UserVerified;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class UserRepository extends Repository
@@ -29,9 +30,9 @@ class UserRepository extends Repository
         return $user;
     }
 
-    public function showData($id)
+    public function showData()
     {
-        $user = $this -> findOrFail($id);
+        $user = User::with('province','district','municipal','ward')->where('id',Auth::id())->first();
         return $user;
     }
 

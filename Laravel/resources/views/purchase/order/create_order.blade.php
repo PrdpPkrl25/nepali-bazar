@@ -60,7 +60,7 @@
                                            class="col-md-4 col-form-label text-md-right font-weight-bolder">{{ __('Municipal Name:') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="district" type="text" class="form-control" name="municipal"
+                                        <input id="municipal" type="text" class="form-control" name="municipal"
                                                value="{{$user->municipal->municipal_name}}" required
                                                autocomplete="municipal-name" autofocus>
                                     </div>
@@ -124,7 +124,7 @@
                     <div class="card-body">
                         <div class="text-center">
                             <div class="row">
-                                <span class="col-md-6 font-weight-bolder">Price: </span>
+                                <span class="col-md-6 font-weight-bolder">Price({{$item_count}} item): </span>
                                 <span class="col-md-6 font-weight-bolder">Rs {{$total_price}}</span>
                             </div>
 

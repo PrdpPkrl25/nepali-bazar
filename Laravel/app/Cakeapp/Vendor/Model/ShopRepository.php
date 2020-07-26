@@ -31,6 +31,7 @@ class ShopRepository extends Repository
             $request->shop_image_name->storeAs('images/shop',$image_name);
         }
         $shop = $this -> create($request -> all() + ['image_name'=>$image_name,'owner_id'=>Auth::id()]);
+        Owner::create(['user_id'=>Auth::id(),'shop_id'=>$shop->id]);
         return $shop;
     }
 

@@ -18,7 +18,7 @@ class OrderPlacedMail extends Mailable
      *
      * @param Order $order
      */
-    public function __construct(Order $order)
+    public function __construct($order)
     {
         $this->order=$order;
 
@@ -32,8 +32,9 @@ class OrderPlacedMail extends Mailable
     public function build()
     {
         return $this->from('nepalibazar@gmail.com')->markdown('emails.purchase.order.order_confirmation')->with([
-            'orderName' => $this->order->name,
+            'orderId' => $this->order->id,
+            'customerName' => $this->order->name,
             'orderPrice' => $this->order->total_amount,
-        ]);;
+        ]);
     }
 }

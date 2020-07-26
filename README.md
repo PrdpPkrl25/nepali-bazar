@@ -18,3 +18,7 @@ https://dev.to/lvtdeveloper/using-react-in-a-laravel-application-8fp
 
 Useful link :-
 https://www.toptal.com/laravel/restful-laravel-api-tutorial
+
+For installation follow this steps:
+1.Add APP_ADMIN variable in environment file for bcc email to administrator.
+2

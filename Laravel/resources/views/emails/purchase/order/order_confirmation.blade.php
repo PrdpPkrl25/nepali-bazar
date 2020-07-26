@@ -1,12 +1,14 @@
 @component('mail::message')
-    Dear {{$orderName}},<br>
-    Your have placed an order of Rs {{$orderPrice}}.
-    You will be notified once the shop owner accepts your order.<br>
-    Click to see your order:
-    @component('mail::button', ['url' => ''])
-        Order Detail
-    @endcomponent
+Hello {{$customerName}}, <br>
+Your have placed an order of Rs {{$orderPrice}}. Your order Id is #{{$orderId}}. <br>
+You will be notified once your order is shipped. <br>
+Click to see detail of your order:
+@component('mail::button', ['url' => ''])
+View Order
+@endcomponent
 
-    Thanks,<br>
-    {{ config('app.name') }}
+We hope to see you again soon. <br>
+This is a auto generated email. Please do not reply to this message.
+Thanks, <br>
+{{ config('app.name') }}
 @endcomponent

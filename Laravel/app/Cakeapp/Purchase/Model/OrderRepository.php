@@ -24,18 +24,8 @@ class OrderRepository extends Repository
 
     public function handleCreate($request)
     {
-
-        if (session()->has('cart')) {
             $createOrder=new OrderService();
-            $createOrder->createOrder($request);
-            session()->forget('cart');
-        }
-
-        else{
-            flash('Your session time is over. Create your cart again.')->message();
-            return redirect()->back();
-        }
-
+            return $order=$createOrder->createOrder($request);
 
     }
 

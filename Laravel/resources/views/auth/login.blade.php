@@ -55,8 +55,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check ml-3">
+                            <div class="col-md-6 offset-md-3">
+                                <div class="form-check text-center">
                                     <input class="form-check-input " type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember" style="color:white ">
@@ -67,11 +67,11 @@
                         </div>
 
                         <div class="form-group row mb-0 mt-2">
-                            <div class="col-md-8 offset-md-3">
-                                <button type="submit" class="btn btn-primary ml-4">
+                            <div class="col-md-6 offset-md-3 text-center">
+                                <button type="submit" class="btn btn-primary btn-block " id="login">
                                     {{ __('Login') }}
                                 </button>
-
+                                    <br>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -86,26 +86,30 @@
                         <hr style="height:1.5px;border-width:0;color:gray;background-color:gray;width: 60%;">
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-3 text-center">
                                 @if (Route::has('register'))
-                                    <a class="btn btn-link ml-4" href="{{ route('register') }}">
+                                    <a class="btn btn-link " href="{{ route('register') }}">
                                         {{ __('New here? Sign up') }}
                                     </a>
                                 @endif
                             </div>
                         </div>
 
-                        <span class="offset-md-6" style="color: white">Or,</span>
+                        <div class="row">
+                        <div class="col-md-6 offset-md-3 text-center" style="color: white">
+                           <span>--Or--</span>
+                        </div>
+                        </div>
 
                         <div class="form-group row mb-0 mt-3">
-                            <div class="col-md-8 offset-md-4">
-                                <a href="{{ url('web/auth/redirect/google') }}" class="btn btn-danger  "><i class="fab fa-google"></i> &nbsp;&nbsp;Login With Google &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <div class="col-md-6 offset-md-3">
+                                <a href="{{ url('web/auth/redirect/google') }}" class="btn btn-block btn-danger  "><i class="fab fa-google"></i> &nbsp;&nbsp;Login With Google &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0 mt-2">
-                            <div class="col-md-8 offset-md-4">
-                                <a href="{{ url('web/auth/redirect/facebook') }}" class="btn btn-primary "><i class="fab fa-facebook"></i> &nbsp;&nbsp;Login With Facebook&nbsp;&nbsp;</a>
+                        <div class="form-group row mb-0 mt-3">
+                            <div class="col-md-6 offset-md-3">
+                                <a href="{{ url('web/auth/redirect/facebook') }}" class="btn btn-block btn-primary "><i class="fab fa-facebook"></i> &nbsp;&nbsp;Login With Facebook&nbsp;&nbsp;</a>
                             </div>
                         </div>
                     </form>

@@ -1,4 +1,4 @@
 <?php
 return[
-    'AdminMail'=>env('APP_ADMIN'),
+    'admin_mail'=>env('APP_ADMIN','pradip.pokhrel25@gmail.com'),
 ];

@@ -57,7 +57,7 @@
                                 </tfoot>
                             </table>
                             <p value="{{session()->get('cart')->id}}" id="cart_id" style="display: none"></p>
-                            <a class="btn btn-secondary shadow border offset-md-1" href="{{'/web/home'}}">CONTINUE SHOPPING</a>
+                            <a class="btn btn-light shadow border offset-md-1" href="{{'/web/home'}}">CONTINUE SHOPPING</a>
                             <a class="btn btn-warning shadow border offset-md-6" href="{{route('order.create')}}">PROCEED TO CHECKOUT </a>
 
                         </div>

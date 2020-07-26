@@ -33,7 +33,7 @@ Route::get('auth/callback/{provider}', 'LoginController@handleProviderCallback')
 });
 
 Route ::namespace('Web\User') -> group(function () {
-    Route ::get('/admin', 'UserController@Welcome')->name('admin');
+    Route ::get('/account', 'UserController@show')->name('user.profile');
     Route::get('/roles', 'RoleController@index')->name('roles.index');
     Route::post('/roles/{role_id}/{permission_id}', 'RoleController@update')->name('roles.update');
 });
@@ -63,6 +63,8 @@ Route ::namespace('Web\Purchase') -> group(function () {
     Route ::post('/cart/delete/{cart_id}/{product_id}', 'CartController@delete') -> name('cart.delete');
     Route ::get('/checkout/create', 'OrderController@create') -> name('order.create');
     Route ::post('/checkout', 'OrderController@store') -> name('order.store');
+    Route ::get('/orders', 'OrderController@index') -> name('orders');
+    Route ::get('/order/{order_id}', 'OrderController@show') -> name('order.show');
 });
 
 
