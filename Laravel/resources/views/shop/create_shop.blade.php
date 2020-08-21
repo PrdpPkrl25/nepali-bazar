@@ -4,12 +4,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card align-content-between">
+                <div class="card align-content-between" style="margin-bottom: 50px">
                     <div class="card-header">Create Shop</div>
                     <form method="post" action="{{ route('shops.store') }}" style="margin: 20px" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row" >
-                            <div class="col-md-4 offset-md-4">
+                            <div class="col-md-4 offset-md-4 mt-2">
                                 <strong>Shop Name:</strong>
                                 <input type="text" name="shop_name"  class="form-control mt-2" placeholder="Enter Shop Name..">
                             </div>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0" style="margin-top: 20px">
+                        <div class="form-group row mt-4" >
                             <div class="col-md-6 offset-md-5">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Create') }}

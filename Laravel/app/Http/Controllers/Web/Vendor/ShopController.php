@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Requests\Vendor\StoreShopRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -35,8 +36,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = $this-> shopRepository -> getIndexViewData();
-        return new ShopCollection($shops);
+        //
     }
 
     /**
@@ -53,16 +53,16 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreShopRequest $request)
     {
         $shop = $this -> shopRepository -> handleCreate($request);
-        return view('home');
+        return redirect()->route('home');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource
      * @param $shop_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -71,6 +71,18 @@ class ShopController extends Controller
        $shop = $this -> shopRepository -> getData($shop_id);
        $products=Product::where('shop_id',$shop_id)->paginate(12);
        return view('shop.shop_profile',compact('shop','products'));
+    }
+
+    /**
+     * Display the specified resource.
+     * @param $shop_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function info()
+    {
+
+        $shops = Shop::with('province','district','municipal','ward')->where('owner_id',Auth::id())->get();
+        return view('vendor.shop.profile',compact('shops'));
     }
 
     /**

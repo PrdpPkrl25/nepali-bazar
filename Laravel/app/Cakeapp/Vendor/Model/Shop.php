@@ -2,8 +2,10 @@
 
 namespace App\Cakeapp\Vendor\Model;
 
+use App\Cakeapp\Location\Model\District;
 use App\Cakeapp\Location\Model\Locality;
 use App\Cakeapp\Location\Model\Municipal;
+use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Location\Model\Ward;
 use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\User\Model\User;
@@ -17,6 +19,14 @@ class Shop extends Model
 
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function province(){
+        return $this->belongsTo(Province::class,'province_id');
+    }
+
+    public function district(){
+        return $this->belongsTo(District::class,'district_id');
     }
 
     public function municipal(){

@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card align-content-between" style="margin-top: 100px">
-                    <div class="card-header">Select Product:</div>
+                <div class="card align-content-between" style="margin-top: 50px">
+                    <div class="card-header">Product Detail:</div>
                     <div class="card-body">
                         <div class="flash-message"></div>
                             <div class="row ">
@@ -27,6 +27,20 @@
                                 </div>
 
                             </div>
+                    </div>
+                </div>
+
+                <div class="card align-content-between" style="margin-top: 10px">
+                    <div class="card-header">Product Features:</div>
+                    <div class="card-body">
+                        @foreach($features as $feature)
+                            <div class="row">
+                                <div class="col-md-1 text-center">{{$loop->iteration}}.</div>
+                                <div class="col-md-3 text-left"> <p class="font-weight-bold">{{$feature->name}} : </p></div>
+                                <div class="col-md-8 text-left"> <p>{{$feature->description}} </p></div>
+                            </div>
+                        @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

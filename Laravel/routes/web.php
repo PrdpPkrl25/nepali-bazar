@@ -39,9 +39,10 @@ Route ::namespace('Web\User') -> group(function () {
 });
 
 Route ::namespace('Web\Vendor') -> group(function () {
-    Route ::get('shops/create', 'ShopController@create')->name('shops.create');
+    Route ::get('shop/create', 'ShopController@create')->name('shop.create');
     Route ::post('shops', 'ShopController@store')->name('shops.store');
     Route ::get('shop/{shop_id}', 'ShopController@show')->name('shop.select');
+    Route ::get('shop-account', 'ShopController@info')->name('shop.profile');
 });
 
 Route ::namespace('Web\Ajax') -> group(function () {
@@ -64,6 +65,7 @@ Route ::namespace('Web\Purchase') -> group(function () {
     Route ::get('/checkout/create', 'OrderController@create') -> name('order.create');
     Route ::post('/checkout', 'OrderController@store') -> name('order.store');
     Route ::get('/orders', 'OrderController@index') -> name('orders');
+    Route ::get('/orders-received', 'OrderController@received') -> name('orders.received');
     Route ::get('/order/{order_id}', 'OrderController@show') -> name('order.show');
 });
 
@@ -71,9 +73,13 @@ Route ::namespace('Web\Purchase') -> group(function () {
 Route ::namespace('Web\Product') -> group(function () {
     Route ::get('/category/select', 'CategoryController@index') -> name('category.select');
     Route ::get('/product/create', 'ProductController@create')->name('product.create');
-    Route ::post('/product', 'ProductController@store')->name('product.store');
+    Route ::post('/products', 'ProductController@store')->name('products.store');
     Route ::get('/products/{category_id}', 'ProductController@index')->name('products.select');
     Route ::get('/product/{product_id}', 'ProductController@show')->name('product.show');
+    Route ::get('/products-listed', 'ProductController@productsListed')->name('products.listed');
+    Route ::get('/product/{product_id}/edit', 'ProductController@edit')->name('product.edit');
+    Route ::post('/product/{product_id}', 'ProductController@update')->name('product.update');
+
 
 });
 

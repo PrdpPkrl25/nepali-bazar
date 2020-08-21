@@ -79,6 +79,38 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+
+
+
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                {{ __('My Profile') }}
+                            </a>
+
+                            @if(\Illuminate\Support\Facades\Auth::user()->can('create-product'))
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('shop.profile') }}">
+                                    {{ __('Shops Profile') }}
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('products.listed') }}">
+                                    {{ __('My Products') }}
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('orders.received') }}">
+                                    {{ __('Orders Received') }}
+                                </a>
+                            @endif
+
+                            @if(\Illuminate\Support\Facades\Auth::user()->can('read-customer'))
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('orders') }}">
+                                {{ __('Orders') }}
+                            </a>
+                            @endif
+
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -87,16 +119,6 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('user.profile') }}">
-                                {{ __('My Profile') }}
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('orders') }}">
-                                {{ __('Orders') }}
-                            </a>
 
                         </div>
                     </li>

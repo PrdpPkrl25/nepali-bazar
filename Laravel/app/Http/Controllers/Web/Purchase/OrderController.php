@@ -35,7 +35,6 @@ class OrderController extends Controller
     {
        $cartIdArray=Cart::where('user_id',Auth::id())->get()->pluck('id');
        $orders=Order::whereIn('cart_id',$cartIdArray)->get();
-
        return view('purchase.order.orders',compact('orders'));
 
     }
@@ -139,5 +138,10 @@ class OrderController extends Controller
         $this -> orderRepository -> handleDelete($id);
 
         return response()->json(null,204);
+    }
+
+    public function received(){
+        $shopArray=Shop::where('owner_id',Auth::id())->pluck('id');
+
     }
 }

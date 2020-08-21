@@ -26,15 +26,33 @@ class ProductRepository extends Repository
             $image_name=$request->product_image_name->getClientOriginalName();
             $request->product_image_name->storeAs('images/product',$image_name);
         }
-        $product= $this->create($request->all()+['image_name'=>$image_name]);
-        return $product;
+        $product= $this->create(['product_name'=>$request->product_name,'category_id'=>$request->category_id,'base_quantity'=>$request->base_quantity,'shop_id'=>$request->shop_id,'measure_unit'=>$request->measure_unit,'price'=>$request->price,'image_name'=>$image_name]);
+
+        $no_of_features=count($request->all()['name']);
+        for($i=0;$i<$no_of_features;$i++) {
+            Feature::create(['product_id' => $product->id, 'name' => $request->all()['name'][$i], 'description' => $request->all()['description'][$i]]);
+        }
     }
+
 
     public function showData($id)
     {
-        $product = $this -> findOrFail($id);
+        return $this -> findOrFail($id);
+    }
 
-        return $product;
+    public function handleEdit($request,$id)
+    {
+        $image_name=null;
+        if(isset($request->product_image_name)){
+            $image_name=$request->product_image_name->getClientOriginalName();
+            $request->product_image_name->storeAs('images/product',$image_name);
+        }
+
+         $product= Product::where('id',$id)->update(['product_name'=>$request->product_name,'category_id'=>$request->category_id,'base_quantity'=>$request->base_quantity,'shop_id'=>$request->shop_id,'measure_unit'=>$request->measure_unit,'price'=>$request->price,'image_name'=>$image_name]);
+        $no_of_features=count($request->all()['name']);
+        for($i=0;$i<$no_of_features;$i++) {
+            Feature::create(['product_id' => $product->id, 'name' => $request->all()['name'][$i], 'description' => $request->all()['description'][$i]]);
+        }
     }
 
     public function handleDelete($id)

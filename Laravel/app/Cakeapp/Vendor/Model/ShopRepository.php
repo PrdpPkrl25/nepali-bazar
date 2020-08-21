@@ -5,6 +5,7 @@ namespace App\Cakeapp\Vendor\Model;
 
 
 use App\Cakeapp\Common\Eloquent\Repository;
+use App\Cakeapp\User\Model\User;
 use Illuminate\Support\Facades\Auth;
 
 class ShopRepository extends Repository
@@ -35,9 +36,9 @@ class ShopRepository extends Repository
         return $shop;
     }
 
-    public function getData($shop_id)
+    public function getData()
     {
-        return $this -> findOrFail($shop_id);
+
     }
 
     public function handleDelete($id)

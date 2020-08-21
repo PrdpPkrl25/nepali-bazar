@@ -2,13 +2,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 col-md-offset-9">
-                {{--<a href="{{route('roles.create')}}"><h3><span class="glyphicon glyphicon-plus-sign"></span>
-                        Add New</h3>
-                </a>--}}
-            </div>
-            <div class="col-sm-3">
-                <h3>Roles:</h3>
+            <div class="card-header">
+                <p style="margin-bottom: 0">Add Permission to Roles:</p>
             </div>
         </div>
         <div class="table-responsive">

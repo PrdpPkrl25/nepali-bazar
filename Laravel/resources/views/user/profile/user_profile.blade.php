@@ -18,8 +18,7 @@
 
                                             <div class="col-md-4">
                                                 <input id="name" type="text" class="form-control" name="name"
-                                                       value="{{$user->name}}" required
-                                                       autocomplete="name" autofocus>
+                                                       value="{{$user->name}}" readonly>
                                             </div>
                                         </div>
 
@@ -29,8 +28,7 @@
 
                                             <div class="col-md-4">
                                                 <input id="email" type="text" class="form-control" name="email"
-                                                       value="{{$user->email}}" required
-                                                       autocomplete="email" autofocus>
+                                                       value="{{$user->email}}" readonly>
                                             </div>
                                         </div>
 
@@ -40,8 +38,7 @@
 
                                             <div class="col-md-4">
                                                 <input id="phone" type="text" class="form-control" name="phone_number"
-                                                       value="{{$user->phone_number}}" required
-                                                       autocomplete="phone-number" autofocus>
+                                                       value="{{$user->phone_number}}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -59,8 +56,7 @@
 
                                         <div class="col-md-4">
                                             <input id="province" type="text" class="form-control " name="province"
-                                                   value="{{$user->province->province_name}}" required
-                                                   autocomplete="province" autofocus>
+                                                   value="{{$user->province->province_name}}" readonly>
                                         </div>
                                     </div>
 
@@ -70,8 +66,7 @@
 
                                         <div class="col-md-4">
                                             <input id="district" type="text" class="form-control " name="district"
-                                                   value="{{$user->district->district_name}}" required
-                                                   autocomplete="district-name" autofocus>
+                                                   value="{{$user->district->district_name}}" readonly>
                                         </div>
                                     </div>
 
@@ -81,8 +76,7 @@
 
                                         <div class="col-md-4">
                                             <input id="municipal" type="text" class="form-control" name="municipal"
-                                                   value="{{$user->municipal->municipal_name}}" required
-                                                   autocomplete="municipal-name" autofocus>
+                                                   value="{{$user->municipal->municipal_name}}" readonly>
                                         </div>
                                     </div>
 
@@ -92,8 +86,7 @@
 
                                         <div class="col-md-4">
                                             <input id="ward_number" type="text" class="form-control" name="ward_number"
-                                                   value="{{$user->ward->ward_number}}" required
-                                                   autocomplete="ward-number" autofocus>
+                                                   value="{{$user->ward->ward_number}}" readonly>
                                         </div>
                                     </div>
 
@@ -103,8 +96,7 @@
 
                                         <div class="col-md-4">
                                             <input id="locality" type="text" class="form-control" name="locality"
-                                                   value="{{$user->locality}}" required
-                                                   autocomplete="locality" autofocus>
+                                                   value="{{$user->locality}}" readonly>
                                         </div>
                                     </div>
                                 </div>

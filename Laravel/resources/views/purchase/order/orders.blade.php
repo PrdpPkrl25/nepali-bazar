@@ -4,9 +4,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card align-content-between">
+                <div class="card align-content-between text-center">
                     <div class="card-header"> My Orders:</div>
                     <div class="card-body">
+                        @if(!$orders->isEmpty())
                             @foreach($orders as $order)
                             <div class="card bg-light text-center " style="margin-top: 20px" >
                                 <div class="card-header">
@@ -34,6 +35,11 @@
                                 @endforeach
                             </div>
                             @endforeach
+                        @else
+                            <p class="font-weight-bold" style="font-size: 1.2em" >
+                            You haven't ordered anything yet. Checkout items in the Cart.</p>
+                            <a class="btn btn-light shadow border" href="{{'/web/home'}}">CONTINUE SHOPPING</a>
+                        @endif
                         </div>
 
                 </div>

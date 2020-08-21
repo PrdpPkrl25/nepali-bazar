@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Web\Product;
 
 use App\Cakeapp\Common\Events\VisitProduct;
 use App\Cakeapp\Product\Model\Category;
+use App\Cakeapp\Product\Model\Feature;
 use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Product\Model\ProductRepository;
 use App\Cakeapp\User\Permission\CheckPermissionTrait;
 
+use App\Cakeapp\Vendor\Model\Owner;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductPost;
@@ -60,14 +62,15 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreProductPost $request)
     {
+
         $user=Auth::user();
         if($user->can('create-product')){
-            $product = $this-> productRepository -> handleCreate($request);
-            return view('home');
+            $this-> productRepository -> handleCreate($request);
+            return redirect()->route('home');
         }
         else{
             return redirect()->back() ->with('error','You have no permission for this page!');;
@@ -88,36 +91,41 @@ class ProductController extends Controller
         $product=Product::where('id',$id)->first();
         $shop_id=$product->shop_id;
         $shop=Shop::where('id',$shop_id)->first();
+        $features=Feature::where('product_id',$product->id)->get();
         event(new VisitProduct($product));
 
-        return view('product.show_product',compact('shop','product'));
+        return view('product.show_product',compact('shop','product','features'));
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param $product_id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Product $product)
+    public function edit($product_id)
     {
-        //
+        $categories=Category::all();
+        $shops=Shop::where('owner_id',Auth::id())->get();
+        $product=Product::where('id',$product_id)->first();
+        $features=Feature::where('product_id',$product->id)->get();
+        return view('product.product_edit',compact('product','shops','categories','features'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        $requestData = $request->all();
-        $product = $this-> productRepository->showData($id);
-        $product->update($requestData);
-        return response()->json($product,200);
+        $this-> productRepository->handleEdit($request,$id);
+        return redirect()->route('products.listed');
+
+
     }
 
     /**
@@ -131,4 +139,13 @@ class ProductController extends Controller
         $this->productRepository->handleDelete($id);
         return response()->json(null,204);
     }
+
+    public function productsListed(){
+        $shopIdArray=Owner::where('user_id',Auth::id())->pluck('shop_id');
+        $products=Product::whereIn('shop_id',$shopIdArray)->get();
+        return view('product.products_listed',compact('products'));
+
+    }
+
+
 }

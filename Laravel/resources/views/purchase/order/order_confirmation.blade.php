@@ -8,7 +8,7 @@
                     <div class="card-header">Order Confirmation:</div>
                     <div class="card-body">
                         <p class="font-weight-bold" style="font-size: 1.2em" >Thank You <span style="font-size: 1.2em">{{$order->name}}</span>,<br>  Your order of Rs {{$order->total_amount}} has been placed. Click to see your order:<br>  </p>
-                        <a class="btn btn-info mt-2" href="#"> Order Detail</a>
+                        <a class="btn btn-info mt-2" href="{{route('order.show',$order->id)}}"> Order Detail</a>
                     </div>
                     </a>
                 </div>
