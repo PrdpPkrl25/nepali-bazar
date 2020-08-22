@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE orders AUTO_INCREMENT = 1000;");
+        /*DB::statement("ALTER TABLE orders AUTO_INCREMENT = 1000");*/
     }
 
     /**
