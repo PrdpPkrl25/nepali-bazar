@@ -63,11 +63,6 @@
                     success: function (data) {
                         $('div.flash-message').html(data).fadeIn(1000).delay(2000).fadeOut(350);
 
-                        @if(session()->has('cart'))
-                            $('#item-count').html('{{count(session()->get('cart')->products)}} item')
-                        @endif
-
-
                     },
                 })
                 ;

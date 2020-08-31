@@ -10,7 +10,7 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'category_id'=>$faker->biasedNumberBetween(0,15),
         'product_name'=>$faker->word(),
-        'shop_id'=>$faker->biasedNumberBetween(1,3),
+        'shop_id'=>$faker->biasedNumberBetween(1,4),
         'base_quantity'=>$faker->biasedNumberBetween(0,100),
          'measure_unit'=>$faker->word(),
         'price'=>$faker->biasedNumberBetween(50,5000),

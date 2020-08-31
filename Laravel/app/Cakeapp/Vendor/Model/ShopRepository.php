@@ -36,9 +36,9 @@ class ShopRepository extends Repository
         return $shop;
     }
 
-    public function getData()
+    public function getData($id)
     {
-
+       return $shop = $this -> findOrFail($id);
     }
 
     public function handleDelete($id)

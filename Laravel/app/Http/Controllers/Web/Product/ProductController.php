@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\Product;
 
-use App\Cakeapp\Common\Events\VisitProduct;
+use App\Cakeapp\Common\Events\VisitItem;
 use App\Cakeapp\Product\Model\Category;
 use App\Cakeapp\Product\Model\Feature;
 use App\Cakeapp\Product\Model\Product;
@@ -12,7 +12,7 @@ use App\Cakeapp\User\Permission\CheckPermissionTrait;
 use App\Cakeapp\Vendor\Model\Owner;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\StoreProductPost;
+use App\Http\Requests\Product\StoreProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -64,7 +64,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreProductPost $request)
+    public function store(StoreProductRequest $request)
     {
 
         $user=Auth::user();
@@ -88,11 +88,11 @@ class ProductController extends Controller
     public function show($id)
     {
 
-        $product=Product::where('id',$id)->first();
+        $product=$this->productRepository->getData($id);
         $shop_id=$product->shop_id;
         $shop=Shop::where('id',$shop_id)->first();
         $features=Feature::where('product_id',$product->id)->get();
-        event(new VisitProduct($product));
+        event(new VisitItem($product));
 
         return view('product.show_product',compact('shop','product','features'));
 
@@ -124,8 +124,6 @@ class ProductController extends Controller
     {
         $this-> productRepository->handleEdit($request,$id);
         return redirect()->route('products.listed');
-
-
     }
 
     /**
@@ -141,8 +139,8 @@ class ProductController extends Controller
     }
 
     public function productsListed(){
-        $shopIdArray=Owner::where('user_id',Auth::id())->pluck('shop_id');
-        $products=Product::whereIn('shop_id',$shopIdArray)->get();
+        $shopIdArray=Shop::where('owner_id',Auth::id())->pluck('id');
+        $products=Product::whereIn('shop_id',$shopIdArray)->orderBy('shop_id')->get();
         return view('product.products_listed',compact('products'));
 
     }

@@ -4,61 +4,71 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card align-content-between">
+                <div class="card align-content-between" style="margin-bottom: 50px">
                     <div class="card-header">Cart Item:</div>
                     <div class="card-body">
                         <div class="row text-center">
                             <table class="table table-bordered table-hover text-center table-striped">
                                 <tbody>
-                                @foreach($cart->products as $product)
-                                    <tr>
+                                @php($i=1)
+                                @foreach($carts as $cart)
+                                    @foreach($cart->products as $product)
 
-                                        <td>{{$loop->iteration}}</td>
+                                        <tr>
 
-                                        <td>
-                                            @php($image=$product->image_name?$product->image_name:'noimage.jpg')
-                                            <img src="{{asset('product/'.$image)}}" height="150" width="150"
-                                                 alt="product_image">
-                                        </td>
+                                            <td>{{1}}</td>
 
-                                        <td style="vertical-align: middle"><a class="product-name mt-4"
-                                                                              href='{{route('product.show',$product->pivot->product_id)}}'>{{$product->product_name}}</a><br>
-                                            Qty: <select value="{{$product->pivot->product_id}}" id="quantity"
-                                                         class="mt-2 mr-2 quantity_change">
-                                                <option
-                                                    value=" ">{{$product->pivot->quantity}} {{$product->pivot->measure_unit}}</option>
-                                                @for($i=1;$i<=10;$i++)
+                                            <td>
+                                                @php($image=$product->image_name?$product->image_name:'noimage.jpg')
+                                                <img src="{{asset('product/'.$image)}}" height="150" width="150"
+                                                     alt="product_image">
+                                            </td>
+
+                                            <td style="vertical-align: middle"><a class="product-name mt-4"
+                                                                                  href='{{route('product.show',$product->pivot->product_id)}}'>{{$product->product_name}}</a><br>
+                                                Qty: <select value="{{$product->pivot->product_id}}" id="quantity"
+                                                             class="mt-2 mr-2 quantity_change">
                                                     <option
-                                                        value="{{$i}}">{{$i}} {{$product->pivot->measure_unit}}</option>
-                                                @endfor
-                                            </select> |
-                                            <button class="ml-2 btn btn-danger remove_product"
-                                                    value="{{$product->pivot->product_id}}"><i class="fa fa-remove"></i>
-                                            </button>
-                                        </td>
+                                                        value=" ">{{$product->pivot->quantity}} {{$product->pivot->measure_unit}}</option>
+                                                    @for($i=1;$i<=10;$i++)
+                                                        <option
+                                                            value="{{$i}}">{{$i}} {{$product->pivot->measure_unit}}</option>
+                                                    @endfor
+                                                </select> |
+                                                <button class="ml-2 btn btn-danger remove_product"
+                                                        value="{{$product->pivot->product_id}}"><i
+                                                        class="fa fa-remove"></i>
+                                                </button>
+                                            </td>
 
-                                        <td style="vertical-align: middle"
-                                            id="net_price_{{$product->pivot->product_id}}">
-                                            Rs {{$product->pivot->net_price}}</td>
+                                            <td style=" vertical-align: middle" class="font-weight-bolder">
+                                                {{$cart->shop->shop_name}}
+                                            </td>
 
-                                    </tr>
+                                            <td style="vertical-align: middle"
+                                                id="net_price_{{$product->pivot->product_id}}">
+                                                Rs {{$product->pivot->net_price}}</td>
+
+                                        </tr>
+                                        <p value="{{$cart->id}}" id="cart_id" style="display: none"></p>
+                                    @endforeach
                                 @endforeach
-
                                 </tbody>
                                 <tfoot>
                                 <tr class="text-center">
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th>Total Price:</th>
                                     <th id="total_price">Rs {{$total_price}}</th>
 
                                 </tr>
-
                                 </tfoot>
                             </table>
-                            <p value="{{session()->get('cart')->id}}" id="cart_id" style="display: none"></p>
-                            <a class="btn btn-light shadow border offset-md-1" href="{{'/web/home'}}">CONTINUE SHOPPING</a>
-                            <a class="btn btn-warning shadow border offset-md-6" href="{{route('order.create')}}">PROCEED TO CHECKOUT </a>
+                            <a class="btn btn-light shadow border offset-md-1" href="{{'/web/home'}}">CONTINUE
+                                SHOPPING</a>
+                            <a class="btn btn-warning shadow border offset-md-6" href="{{route('order.create')}}">PROCEED
+                                TO CHECKOUT </a>
 
                         </div>
                     </div>

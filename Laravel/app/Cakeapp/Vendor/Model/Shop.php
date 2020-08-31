@@ -8,6 +8,7 @@ use App\Cakeapp\Location\Model\Municipal;
 use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Location\Model\Ward;
 use App\Cakeapp\Product\Model\Product;
+use App\Cakeapp\Purchase\Model\Cart;
 use App\Cakeapp\User\Model\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,6 +44,10 @@ class Shop extends Model
 
     public function products(){
         return $this->hasMany(Product::class);
+    }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
     }
 
 }

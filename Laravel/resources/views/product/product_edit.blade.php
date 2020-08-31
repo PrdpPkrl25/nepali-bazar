@@ -88,15 +88,27 @@
                                 <h3>Add Feature: </h3>
                             </div>
                             <div class="card-body">
-                                <div class="appending_div form-group row">
-                                    <div class="col-md-6 offset-md-3">
-                                        @foreach($features as $feature)
-                                        <strong>Feature Name:</strong>
-                                        <input type="text" name="name[]" class="form-control mt-2" value="{{$feature->name}}">
-                                        <strong>Description:</strong>
-                                        <input type="text" name="description[]" class="form-control mt-2 mb-4" value="{{$feature->description}}">
-                                        @endforeach
+                                <div class="appending_div form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Feature Name:</strong>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <strong>Description:</strong>
+                                        </div>
                                     </div>
+                                        @foreach($features as $feature)
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <input type="text" name="name[]" class="form-control mt-2" value="{{$feature->name}}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="description[]" class="form-control mt-2 mb-4" value="{{$feature->description}}">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                 </div>
 
                                 <span class="fa fa-plus add" style="font-size: 1.2em"></span>
@@ -123,11 +135,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.add').on('click', function () {
-                var field = '<br><div class="col-md-6 offset-md-3">' +
-                    '<strong>Feature Name:</strong> ' +
+                var field = '<div class="row">' +
+                    '<div class="col-md-6">' +
                     '<input type="text" name="name[]"  class="form-control mt-2"> ' +
-                    ' <strong>Description:</strong> ' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
                     ' <input type="text" name="description[]"  class="form-control mt-2 mb-4">' +
+                    '</div>' +
                     '</div>';
                 $('.appending_div').append(field);
             })

@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 
-use App\Cakeapp\Common\Events\VisitProduct;
-use App\Cakeapp\Common\Listeners\CountProductVisitHandler;
+use App\Cakeapp\Common\Events\VisitItem;
+use App\Cakeapp\Common\Listeners\CountItemVisitHandler;
 use App\Cakeapp\User\Events\UserAuthenticated;
 use App\Cakeapp\User\Events\UserLoggedOut;
 use App\Cakeapp\User\Listeners\LoginListener;
@@ -28,8 +28,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        VisitProduct::class => [
-            CountProductVisitHandler::class,
+        VisitItem::class => [
+            CountItemVisitHandler::class,
         ],
 
         Login::class=>[

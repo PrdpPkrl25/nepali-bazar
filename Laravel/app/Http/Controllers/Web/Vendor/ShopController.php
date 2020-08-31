@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Vendor;
 
+use App\Cakeapp\Common\Events\VisitItem;
 use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Vendor\Model\ShopRepository;
@@ -57,7 +58,7 @@ class ShopController extends Controller
      */
     public function store(StoreShopRequest $request)
     {
-        $shop = $this -> shopRepository -> handleCreate($request);
+        $this -> shopRepository -> handleCreate($request);
         return redirect()->route('home');
     }
 
@@ -69,6 +70,7 @@ class ShopController extends Controller
     public function show($shop_id)
     {
        $shop = $this -> shopRepository -> getData($shop_id);
+        event(new VisitItem($shop));
        $products=Product::where('shop_id',$shop_id)->paginate(12);
        return view('shop.shop_profile',compact('shop','products'));
     }
@@ -80,7 +82,6 @@ class ShopController extends Controller
      */
     public function info()
     {
-
         $shops = Shop::with('province','district','municipal','ward')->where('owner_id',Auth::id())->get();
         return view('vendor.shop.profile',compact('shops'));
     }

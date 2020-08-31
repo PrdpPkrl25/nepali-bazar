@@ -3,8 +3,8 @@
 namespace App\Cakeapp\Purchase\Model;
 
 
-
 use App\Cakeapp\Common\Eloquent\Repository;
+use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Purchase\Service\CartSevice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -21,32 +21,60 @@ class CartRepository extends Repository
         return Cart::class;
     }
 
-    public function  handleCreate($product_id)
+    public function handleCreate($product_id)
     {
-          $createservice=new CartSevice();
-        if (Session::has('cart')){
+        $product = Product::with('shop')->where('id', $product_id)->first();
+        if (Session::has('cart')) {
             $cart = Session::get('cart');
-        }
-        else{
-            $cart_array =['user_id'=>Auth::id()];
-            $cart=$this->create($cart_array);
+            $shopIdsArray = Cart::where('cart_session_id', Session::get('cart_session_id'))->pluck('shop_id')->toArray();
+            if (in_array($product->shop_id, $shopIdsArray)) {
+                $cart = CartSevice::findTheCart($product->shop_id);
+            } else {
+                if (count($shopIdsArray) == 3) {
+                    Session::flash('error','Sorry, You cannot add product of more than 3 shops.');
+                    return ;
+                } else {
+                    $cart = CartSevice::addNewShopInCart($product->shop_id);
+                    $cart->cart_session_id=\session()->get('cart_session_id');
+                    $cart->save();
+
+                }
+            }
+
+        } else {
+            $cart_array = ['user_id' => Auth::id(), 'shop_id' => $product->shop_id];
+            $cart = $this->create($cart_array);
+            $cart->cart_session_id = $cart->id;
+            $cart->save();
+            session(['cart_session_id' => $cart->id]);
 
         }
+        $createservice = new CartSevice();
         $createservice->addProductInCart($product_id, $cart);
-        $cart=Cart::with('products')->find($cart->id);
-        session(['cart' => $cart]);
+        $carts = Cart::with('shop','products')->where('cart_session_id',Session::get('cart_session_id'))->get();
+        session(['cart' => $carts]);
     }
 
     public function showData($id)
     {
-        $cart = $this -> findOrFail($id);
+        $cart = $this->findOrFail($id);
         return $cart;
     }
 
-    public function handleDelete($id)
+    public function handleDelete($cartId,$productId)
     {
-        $cart = $this -> findOrFail($id);
-        $cart -> delete();
+        $cart=Cart::where('id',$cartId)->first();
+        $cart->products()->detach($productId);
+        session()->forget('cart');
+        $carts= Cart::with('shop','products')->where('cart_session_id',Session::get('cart_session_id'))->get();
+        session()->put('cart',$carts);
+        return 'success';
+    }
+
+    public function handleDestroy($id)
+    {
+        $cart = $this->findOrFail($id);
+        $cart->delete();
     }
 
 }

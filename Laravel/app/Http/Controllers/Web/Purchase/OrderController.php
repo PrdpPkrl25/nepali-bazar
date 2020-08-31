@@ -51,13 +51,19 @@ class OrderController extends Controller
         $user=Auth::user();
         $user=User::with(['district','municipal','ward'])->findOrFail($user->id);
         if (session()->has('cart')) {
-            $cart = session()->get('cart');
-            $item_count=$cart->products->count();
-            $total_price = 0.00;
-            foreach ($cart->products as $product) {
-                $total_price = $product->pivot->net_price + $total_price;
-
+            $carts = session()->get('cart');
+            $item_count=0;
+            foreach ($carts as $cart){
+                $item_count=$item_count+$cart->products->count();
             }
+            $total_price = 0.00;
+            foreach ($carts as $cart){
+                foreach ($cart->products as $product) {
+                    $total_price = $product->pivot->net_price + $total_price;
+
+                }
+            }
+
             return view('purchase.order.create_order', compact('user','total_price','item_count'));
         }
         else{
@@ -77,6 +83,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if (session()->has('cart')) {
+
         $order = $this -> orderRepository -> handleCreate($request);
         session()->forget('cart');
         return view('purchase.order.order_confirmation',compact('order'));
@@ -140,8 +147,12 @@ class OrderController extends Controller
         return response()->json(null,204);
     }
 
-    public function received(){
-        $shopArray=Shop::where('owner_id',Auth::id())->pluck('id');
+    public function received($id){
+        $productIdArray=Product::where('shop_id',$id)->pluck('id');
+        $carts=Cart::with(array('products' => function($query) use($productIdArray)
+                {
+                    $query->whereIn('product_id', $productIdArray);
+                }))->get();
 
     }
 }

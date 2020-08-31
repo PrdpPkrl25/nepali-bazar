@@ -3,7 +3,7 @@ Hello {{$customerName}}, <br>
 Your have placed an order of Rs {{$orderPrice}}. Your order Id is #{{$orderId}}. <br>
 You will be notified once your order is shipped. <br>
 Click to see detail of your order:
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('order.show',$orderId)])
 View Order
 @endcomponent
 

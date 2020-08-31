@@ -15,7 +15,7 @@ class CreateViewCountsTable extends Migration
     {
         Schema::create('view_counts', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->integer('table_id');
             $table->string('model');
             $table->string('session_id');

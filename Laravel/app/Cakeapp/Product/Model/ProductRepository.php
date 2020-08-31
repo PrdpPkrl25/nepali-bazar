@@ -35,7 +35,7 @@ class ProductRepository extends Repository
     }
 
 
-    public function showData($id)
+    public function getData($id)
     {
         return $this -> findOrFail($id);
     }
@@ -48,10 +48,11 @@ class ProductRepository extends Repository
             $request->product_image_name->storeAs('images/product',$image_name);
         }
 
-         $product= Product::where('id',$id)->update(['product_name'=>$request->product_name,'category_id'=>$request->category_id,'base_quantity'=>$request->base_quantity,'shop_id'=>$request->shop_id,'measure_unit'=>$request->measure_unit,'price'=>$request->price,'image_name'=>$image_name]);
+        Product::where('id',$id)->update(['product_name'=>$request->product_name,'category_id'=>$request->category_id,'base_quantity'=>$request->base_quantity,'shop_id'=>$request->shop_id,'measure_unit'=>$request->measure_unit,'price'=>$request->price,'image_name'=>$image_name]);
+        Feature::where('product_id',$id)->delete();
         $no_of_features=count($request->all()['name']);
         for($i=0;$i<$no_of_features;$i++) {
-            Feature::create(['product_id' => $product->id, 'name' => $request->all()['name'][$i], 'description' => $request->all()['description'][$i]]);
+            Feature::create(['product_id' => $id, 'name' => $request->all()['name'][$i], 'description' => $request->all()['description'][$i]]);
         }
     }
 

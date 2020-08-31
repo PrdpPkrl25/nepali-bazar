@@ -24,7 +24,7 @@ class StoreCartRequest extends FormRequest
     public function rules($product_id)
     {
         return [
-
+            
         ];
     }
 }

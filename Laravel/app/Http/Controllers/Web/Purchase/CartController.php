@@ -6,7 +6,9 @@ use App\Cakeapp\Product\Model\Product;
 use App\Cakeapp\Purchase\Model\Cart;
 use App\Cakeapp\Purchase\Model\CartRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Purchase\StoreCartRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
@@ -53,8 +55,9 @@ class CartController extends Controller
     {
 
         $this -> cartRepository -> handleCreate($product_id);
-
         return View::make('partials/flash-messages');
+
+
     }
 
 
@@ -67,12 +70,15 @@ class CartController extends Controller
     public function show()
     {
         if (session()->has('cart')){
-            $cart = session()->get('cart');
+            $carts = session()->get('cart');
             $total_price=0.00;
-            foreach($cart->products as $product){
-                $total_price=$product->pivot->net_price + $total_price;
+            foreach($carts as $cart){
+                foreach ($cart->products as $product){
+                    $total_price=$product->pivot->net_price + $total_price;
+                }
+
             }
-         return view('purchase.cart.show_cart',compact('cart','total_price'));
+         return view('purchase.cart.show_cart',compact('carts','total_price'));
        }
         else{
             return view('purchase.cart.empty_cart');
@@ -122,16 +128,13 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param $cart_id
+     * @param $product_id
      * @return void
      */
     public function delete($cart_id, $product_id)
     {
-        $cart=Cart::where('id',$cart_id)->first();
-        $cart->products()->detach($product_id);
-        session()->forget('cart');
-        session()->put('cart',$cart);
-        return 'success';
+        $this -> cartRepository -> handleDelete($cart_id,$product_id);
 
     }
 
@@ -143,7 +146,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        $this -> cartRepository -> handleDelete($id);
+        $this -> cartRepository -> handleDestroy($id);
 
     }
 }

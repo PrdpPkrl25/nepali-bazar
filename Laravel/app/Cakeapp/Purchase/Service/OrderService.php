@@ -5,6 +5,7 @@ namespace App\Cakeapp\Purchase\Service;
 
 
 use App\Cakeapp\Product\Model\Product;
+use App\Cakeapp\Purchase\Model\Cart;
 use App\Cakeapp\Purchase\Model\Order;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Jobs\OrderPlacedJob;
@@ -17,11 +18,15 @@ use Illuminate\Support\Facades\Mail;
 class OrderService
 {
     public function createOrder($request){
-        $cart = session()->get('cart');
+        $carts = session()->get('cart');
         $total_price = 0.00;
-        foreach ($cart->products as $product) {
-            $total_price = $product->pivot->net_price + $total_price;
+        foreach ($carts as $cart){
+            foreach ($cart->products as $product) {
+                $total_price = $product->pivot->net_price + $total_price;
+
+            }
         }
+
         $delivery_charge=0;
         $attr=[
             'cart_id'=>$cart->id,
@@ -38,7 +43,7 @@ class OrderService
         ];
         $order=Order::create($attr);
         $this->sendOrderDetailToCustomer($order);
-        $this->sendOrderDetailToOwner($order,$cart);
+        $this->sendOrderDetailToOwner($order,$carts);
         return $order;
     }
     public function placeOrderService($attr){
@@ -50,13 +55,11 @@ class OrderService
         dispatch(new OrderPlacedJob($order,$email));
     }
 
-    public function sendOrderDetailToOwner($order,$cart){
+    public function sendOrderDetailToOwner($order,$carts){
 
-        $productIdsArray=$cart->products->pluck($cart->product_id);
-        $distinctShopsIdArray=Product::whereIn('id',$productIdsArray)->get()->pluck('shop_id')->unique();
-        foreach ($distinctShopsIdArray as $shopId){
+        foreach ($carts as $cart){
+            $shopId=$cart->shop_id;
             dispatch(new OrderReceivedJob($order,$shopId));
-
         }
 
     }

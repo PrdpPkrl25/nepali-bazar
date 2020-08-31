@@ -13,11 +13,11 @@ use Laracasts\Flash\Flash;
 class CartSevice
 {
 
-    public function addProductInCart($product_id, $cart){
-        $product=Product::where('id',$product_id)->first();
-        $hasProduct=$cart->products()->where('id',$product_id)->exists();
+    public static function addProductInCart($productId, $cart){
+        $product=Product::where('id',$productId)->first();
+        $hasProduct=$cart->products()->where('id',$productId)->exists();
         if(!$hasProduct){
-            $cart->products()->attach($product_id,['quantity'=>$product->base_quantity,'price_per_base_quantity'=>$product->price,'measure_unit'=>$product->measure_unit,'price'=>$product->price,'net_price'=>$product->price]);
+            $cart->products()->attach($productId,['quantity'=>$product->base_quantity,'price_per_base_quantity'=>$product->price,'measure_unit'=>$product->measure_unit,'price'=>$product->price,'net_price'=>$product->price]);
             Session::flash('success', 'Product successfully added in cart');
         }
         else{
@@ -25,5 +25,18 @@ class CartSevice
         }
 
     }
+
+    public static function findTheCart($shopId){
+        $cart=Cart::where('shop_id',$shopId)->where('cart_session_id',\session()->get('cart_session_id'))->first();
+        return $cart;
+    }
+
+    public static function addNewShopInCart($shopId)
+    {
+        $cart_array =['user_id'=>Auth::id(),'shop_id'=>$shopId];
+        $cart=Cart::create($cart_array);
+        return $cart;
+    }
+
 
 }

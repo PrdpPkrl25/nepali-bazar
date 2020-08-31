@@ -2,7 +2,7 @@
 
 namespace App\Cakeapp\Common\Listeners;
 
-use App\Cakeapp\Common\Events\VisitProduct;
+use App\Cakeapp\Common\Events\VisitItem;
 use App\Cakeapp\Common\Model\ViewCount;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use ReflectionClass;
 use ReflectionException;
 
-class CountProductVisitHandler
+class CountItemVisitHandler
 {
     private $session;
 
@@ -28,19 +28,20 @@ class CountProductVisitHandler
     /**
      * Handle the event.
      *
-     * @param VisitProduct $event
+     * @param VisitItem $event
      * @return void
      * @throws ReflectionException
      */
-    public function handle(VisitProduct $event)
+    public function handle(VisitItem $event)
     {
              $model= new ReflectionClass($event->item);
              $table_id=$event->item->id;
              $session_id = session()->getId();
-             ViewCount::create(['user_id'=> Auth::id(),'table_id'=>$table_id,'model'=>$model->getShortName(),'session_id'=>$session_id]);
-           //check if current product_id view count exists in database with session id
-           //Yes: dont update view count
-           //No:update view count and session id
+             $itemVisited=ViewCount::where('table_id',$table_id)->where('session_id',$session_id)->get();
+             if($itemVisited->isEmpty()){
+                 ViewCount::create(['user_id'=> Auth::id(),'table_id'=>$table_id,'model'=>$model->getShortName(),'session_id'=>$session_id]);
+             }
+
     }
 
 
