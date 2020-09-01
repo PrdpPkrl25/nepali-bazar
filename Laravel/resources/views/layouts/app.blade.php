@@ -86,7 +86,7 @@
                                 {{ __('My Profile') }}
                             </a>
 
-                            @if(\Illuminate\Support\Facades\Auth::user()->can('create-product'))
+                            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('owner'))
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('shop.profile') }}">
                                     {{ __('Shops Profile') }}
@@ -94,16 +94,16 @@
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('products.listed') }}">
-                                    {{ __('My Products') }}
+                                    {{ __('Products Listed') }}
                                 </a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('orders.received') }}">
+                                <a class="dropdown-item" href="{{ route('order.received') }}">
                                     {{ __('Orders Received') }}
                                 </a>
                             @endif
 
-                            @if(\Illuminate\Support\Facades\Auth::user()->can('read-customer'))
+                            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('customer'))
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('orders') }}">
                                 {{ __('Orders') }}

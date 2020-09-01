@@ -15,18 +15,18 @@ use Illuminate\Support\Facades\Mail;
 class OrderPlacedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected  $order;
+    protected  $orders;
     protected  $email;
 
     /**
      * Create a new job instance.
      *
-     * @param $order
+     * @param $orders
      * @param $email
      */
-    public function __construct($order,$email)
+    public function __construct($orders,$email)
     {
-        $this->order=$order;
+        $this->orders=$orders;
         $this->email=$email;
     }
 
@@ -37,6 +37,6 @@ class OrderPlacedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new OrderPlacedMail($this->order));
+        Mail::to($this->email)->send(new OrderPlacedMail($this->orders));
     }
 }

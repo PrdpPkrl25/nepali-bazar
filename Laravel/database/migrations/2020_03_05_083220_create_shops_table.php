@@ -18,6 +18,7 @@ class CreateShopsTable extends Migration
             $table->string('shop_name');
             $table->string('email');
             $table->string('phone_number');
+            $table->string('delivery_charge')->nullable();
             $table->string('image_name')->nullable();
             $table->integer('owner_id')->nullable();
             $table->integer('province_id');

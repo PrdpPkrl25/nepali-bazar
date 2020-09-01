@@ -11,16 +11,16 @@ class OrderPlacedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-   protected  $order;
+   protected  $orders;
 
     /**
      * Create a new message instance.
      *
-     * @param Order $order
+     * @param $orders
      */
-    public function __construct($order)
+    public function __construct($orders)
     {
-        $this->order=$order;
+        $this->orders=$orders;
 
     }
 
@@ -31,10 +31,16 @@ class OrderPlacedMail extends Mailable
      */
     public function build()
     {
+        $orderPrice=0.00;
+        foreach ($this->orders as $order){
+            $orderPrice=$order->total_amount+$orderPrice;
+            $customerName=$order->name;
+            $cartSessionId=$order->cart_session_id;
+        }
         return $this->from('nepalibazar@gmail.com')->markdown('emails.purchase.order.order_confirmation')->with([
-            'orderId' => $this->order->id,
-            'customerName' => $this->order->name,
-            'orderPrice' => $this->order->total_amount,
+            'customerName' => $customerName,
+            'orderPrice' => $orderPrice,
+            'cartSessionId'=>$cartSessionId,
         ]);
     }
 }

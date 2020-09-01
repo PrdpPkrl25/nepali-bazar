@@ -65,8 +65,10 @@ Route ::namespace('Web\Purchase') -> group(function () {
     Route ::get('/checkout/create', 'OrderController@create') -> name('order.create');
     Route ::post('/checkout', 'OrderController@store') -> name('order.store');
     Route ::get('/orders', 'OrderController@index') -> name('orders');
-    Route ::get('/orders-received', 'OrderController@received') -> name('orders.received');
     Route ::get('/order/{order_id}', 'OrderController@show') -> name('order.show');
+    Route ::get('/order-received', 'OrderController@orderReceived') -> name('order.received');
+    Route ::get('/order-confirmed/{cart_session_id}', 'OrderController@orderConfirmed') -> name('order.confirmed');
+
 });
 
 

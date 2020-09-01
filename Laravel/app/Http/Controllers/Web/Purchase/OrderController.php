@@ -84,9 +84,16 @@ class OrderController extends Controller
     {
         if (session()->has('cart')) {
 
-        $order = $this -> orderRepository -> handleCreate($request);
-        session()->forget('cart');
-        return view('purchase.order.order_confirmation',compact('order'));
+        $orders = $this -> orderRepository -> handleCreate($request);
+        $cart_session_id=session()->get('cart_session_id');
+        session()->forget(['cart','cart_session_id']);
+        $total_amount=0.00;
+        foreach ($orders as $order){
+            $total_amount=$order->total_amount+$total_amount;
+            $name=$order->name;
+
+        }
+        return view('purchase.order.order_confirmation',compact('name','total_amount','cart_session_id'));
         }
         else{
             flash('Your session time is over. Create your cart again.')->message();
@@ -147,7 +154,13 @@ class OrderController extends Controller
         return response()->json(null,204);
     }
 
-    public function received($id){
+    public function orderConfirmed($cart_session_id){
+        $orders=Order::where('cart_session_id',$cart_session_id)->get();
+        return view('purchase.order.orders',compact('orders'));
+
+    }
+
+    public function orderReceived($id){
         $productIdArray=Product::where('shop_id',$id)->pluck('id');
         $carts=Cart::with(array('products' => function($query) use($productIdArray)
                 {

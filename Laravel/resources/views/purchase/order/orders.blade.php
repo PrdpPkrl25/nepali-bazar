@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card align-content-between text-center">
+                <div class="card align-content-between text-center" style="margin-bottom: 50px">
                     <div class="card-header"> My Orders:</div>
                     <div class="card-body">
                         @if(!$orders->isEmpty())
@@ -12,10 +12,10 @@
                             <div class="card bg-light text-center " style="margin-top: 20px" >
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-md-3"> Ordered by: <br><span style="font-size: 0.8em">{{$order->name}}</span> </div>
-                                        <div class="col-md-3"> Order Date:<br> <span style="font-size: 0.8em">{{date_create($order->order_date)->format('Y-m-d')}}</span></div>
-                                        <div class="col-md-3"> Order Price:<br> <span style="font-size: 0.8em">Rs {{$order->total_amount}}</span> </div>
-                                        <div class="col-md-3">Order No:<span style="font-size: 0.8em"> #{{$order->id}} </span> <br> <a href="{{route('order.show',$order->id)}}" style="cursor: pointer;">Order Details </a></div>
+                                        <div class="col-md-3"> Product Of: <br><span style="font-size: 1em">{{$order->cart->shop->shop_name}}</span> </div>
+                                        <div class="col-md-3"> Order Date:<br> <span style="font-size: 1em">{{date_create($order->order_date)->format('Y-m-d')}}</span></div>
+                                        <div class="col-md-3"> Order Price:<br> <span style="font-size: 1em">Rs {{$order->total_amount}}</span> </div>
+                                        <div class="col-md-3">Order No:<span style="font-size: 1em"> #{{$order->id}} </span> <br> <a href="{{route('order.show',$order->id)}}" style="cursor: pointer;">Order Details </a></div>
                                     </div>
                                 </div>
                                 @foreach($order->cart->products()->get() as $product)

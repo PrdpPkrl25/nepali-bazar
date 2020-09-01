@@ -19,17 +19,25 @@ class OrderService
 {
     public function createOrder($request){
         $carts = session()->get('cart');
-        $total_price = 0.00;
+        $orders=[];
         foreach ($carts as $cart){
-            foreach ($cart->products as $product) {
-                $total_price = $product->pivot->net_price + $total_price;
-
-            }
+           $order= $this->createCartOrder($request,$cart);
+           $orders[]=$order;
         }
+        $this->sendOrderDetailToCustomer($orders);
+        return $orders;
+    }
 
+    public function createCartOrder($request,$cart){
+        $total_price = 0.00;
+        foreach ($cart->products as $product) {
+            $total_price = $product->pivot->net_price + $total_price;
+        }
+        $cart_session_id=session()->get('cart_session_id');
         $delivery_charge=0;
         $attr=[
             'cart_id'=>$cart->id,
+            'cart_session_id'=>$cart_session_id,
             'name'=>$request->name,
             'phone_number'=>$request->phone_number,
             'district'=>$request->district,
@@ -42,25 +50,18 @@ class OrderService
             'total_amount'=>$total_price+$delivery_charge,
         ];
         $order=Order::create($attr);
-        $this->sendOrderDetailToCustomer($order);
-        $this->sendOrderDetailToOwner($order,$carts);
+        $this->sendOrderDetailToOwner($order,$cart);
         return $order;
     }
-    public function placeOrderService($attr){
 
-    }
-
-    public function sendOrderDetailToCustomer($order){
+    public function sendOrderDetailToCustomer($orders){
         $email=Auth::user()->email;
-        dispatch(new OrderPlacedJob($order,$email));
+        dispatch(new OrderPlacedJob($orders,$email));
     }
 
-    public function sendOrderDetailToOwner($order,$carts){
-
-        foreach ($carts as $cart){
+    public function sendOrderDetailToOwner($order,$cart){
             $shopId=$cart->shop_id;
             dispatch(new OrderReceivedJob($order,$shopId));
-        }
 
     }
 
