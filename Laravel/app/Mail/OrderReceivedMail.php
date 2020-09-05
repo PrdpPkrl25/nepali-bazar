@@ -36,7 +36,8 @@ class OrderReceivedMail extends Mailable
         $products=$this->order->cart->products()->where('shop_id',$this->shopId)->get();
         return $this->from('nepalibazar@gmail.com')->markdown('emails.purchase.order.order_received')->with([
             'order'=>$this->order,
-            'products'=>$products
+            'products'=>$products,
+            'cartId'=>$this->order->cart_id,
 
         ]);
     }

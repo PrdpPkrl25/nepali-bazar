@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card align-content-between" style="margin: 20px;margin-top: 100px">
-                    <div class="card-header">Select Your Location:</div>
+                    <div class="card-header">Save Your Information:</div>
 
                         <div class="form-group row mt-4" >
                             <div class="col-md-6 offset-md-3">
@@ -51,6 +51,12 @@
                             <input id="locality" type="text" name="locality" class="form-control" placeholder="Enter Locality and Landmark" required autocomplete="locality" autofocus>
 
                         </div>
+
+                        <div class="col-md-6 offset-md-3 mt-4">
+                            <input id="phone_number" type="text" name="phone_number" class="form-control" placeholder="Enter Phone Number" required autocomplete="phone_number" autofocus>
+
+                        </div>
+
                         <button type="submit" class="btn btn-primary shadow border mt-4 offset-md-5">
                             {{ __('Submit') }}
                         </button>
@@ -140,7 +146,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: '/web/ajax/postlocation' ,
+                    url: '/web/information' ,
                     headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
                     dataType: 'html',
                     data: {
@@ -149,6 +155,7 @@
                         municipal_id: jQuery('#municipal').val(),
                         ward_id: jQuery('#ward').val(),
                         locality: jQuery('#locality').val(),
+                        phone_number:jQuery('#phone_number').val(),
                     },
                     success: function (response) {
                         window.location.replace(response);

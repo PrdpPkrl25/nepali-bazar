@@ -76,11 +76,19 @@
                         </div>
 
                         <div class="form-group row" >
+                            <div class="col-md-4 offset-md-4 mt-2">
+                                <strong>Delivery Charge:</strong>
+                                <input type="text" name="delivery_charge"  class="form-control mt-2" placeholder="Set Delivery Charge..">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" >
                             <div class="col-md-4 offset-md-4">
                                 <strong>Shop Image:</strong>
                                 <input type="file" name="shop_image_name"  class="form-control mt-2">
                             </div>
                         </div>
+
 
                         <div class="form-group row mt-4" >
                             <div class="col-md-6 offset-md-5">

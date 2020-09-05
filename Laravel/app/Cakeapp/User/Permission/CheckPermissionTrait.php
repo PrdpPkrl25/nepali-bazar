@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait CheckPermissionTrait
 {
-    public function checkAllowedAccessForController($parameter){
+    public function checkAllowedAccess($parameter){
         $user=Auth::user();
         if(!$user->can($parameter)){
            throw new PermissionDeniedException();

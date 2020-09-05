@@ -98,7 +98,7 @@
                                             <strong>Description:</strong>
                                         </div>
                                     </div>
-                                        @foreach($features as $feature)
+                                        @foreach($product->features as $feature)
                                             <div class="row">
                                                 <div class="col-md-6">
 

@@ -33,9 +33,20 @@ class OrderController extends Controller
      */
     public function index()
     {
-       $cartIdArray=Cart::where('user_id',Auth::id())->get()->pluck('id');
-       $orders=Order::whereIn('cart_id',$cartIdArray)->get();
-       return view('purchase.order.orders',compact('orders'));
+        if(Auth::user()->hasRole('owner')){
+            $shopIdsArray=Shop::where('owner_id',Auth::id())->pluck('id');
+            $cartsIdArray=Cart::whereIn('shop_id',$shopIdsArray)->pluck('id');
+            $orders=Order::with('cart')->whereIn('cart_id',$cartsIdArray)->get();
+            return view('purchase.order.order_received',compact('orders'));
+        }
+
+
+        else if(Auth::user()->hasRole('customer')){
+            $cartIdArray=Cart::where('user_id',Auth::id())->get()->pluck('id');
+            $orders=Order::whereIn('cart_id',$cartIdArray)->get();
+            return view('purchase.order.orders',compact('orders'));
+        }
+
 
     }
 
@@ -48,13 +59,22 @@ class OrderController extends Controller
     public function create()
     {
 
-        $user=Auth::user();
-        $user=User::with(['district','municipal','ward'])->findOrFail($user->id);
+        $user=User::with(['district','municipal','ward'])->findOrFail(Auth::id());
         if (session()->has('cart')) {
             $carts = session()->get('cart');
             $item_count=0;
+            $delivery_charge=0;
             foreach ($carts as $cart){
+                $total_price=0.00;
                 $item_count=$item_count+$cart->products->count();
+                $delivery_charge=$delivery_charge+$cart->shop->delivery_charge;
+                foreach ($cart->products as $product) {
+                    $total_price = $product->pivot->net_price + $total_price;
+                }
+                if($cart->shop->minimum_order_price > $total_price){
+                    flash("Minimum Order Price for " . $cart->shop->shop_name . "shop is " . $cart->shop->minimum_order_price .". Please add some product in the cart.")->error();
+                   return redirect()->back();
+                }
             }
             $total_price = 0.00;
             foreach ($carts as $cart){
@@ -64,7 +84,7 @@ class OrderController extends Controller
                 }
             }
 
-            return view('purchase.order.create_order', compact('user','total_price','item_count'));
+            return view('purchase.order.create_order', compact('user','total_price','item_count','delivery_charge'));
         }
         else{
             flash('Your session time is over. Create your cart again.')->message();
@@ -160,8 +180,8 @@ class OrderController extends Controller
 
     }
 
-    public function orderReceived($id){
-        $productIdArray=Product::where('shop_id',$id)->pluck('id');
+    public function orderReceived($cart_id){
+
         $carts=Cart::with(array('products' => function($query) use($productIdArray)
                 {
                     $query->whereIn('product_id', $productIdArray);

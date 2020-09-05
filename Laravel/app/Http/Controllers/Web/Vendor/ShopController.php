@@ -33,11 +33,12 @@ class ShopController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        $shops = Shop::with('province','district','municipal','ward')->where('owner_id',Auth::id())->get();
+        return view('vendor.shop.shops',compact('shops'));
     }
 
     /**
@@ -46,9 +47,8 @@ class ShopController extends Controller
      */
     public function create()
     {
-        $this->checkAllowedAccessForController('create-shop');
         $allProvince = Province::get();
-        return view(' shop.create_shop', compact('allProvince'));
+        return view(' vendor.shop.create_shop', compact('allProvince'));
     }
 
     /**
@@ -59,31 +59,33 @@ class ShopController extends Controller
     public function store(StoreShopRequest $request)
     {
         $this -> shopRepository -> handleCreate($request);
+        flash('Your shop is created successfully!')->success();
         return redirect()->route('home');
     }
 
     /**
      * Display the specified resource
-     * @param $shop_id
+     * @param $shopId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($shop_id)
+    public function show($shopId)
     {
-       $shop = $this -> shopRepository -> getData($shop_id);
+       $shop = $this -> shopRepository -> getData($shopId);
         event(new VisitItem($shop));
-       $products=Product::where('shop_id',$shop_id)->paginate(12);
-       return view('shop.shop_profile',compact('shop','products'));
+       $products=Product::where('shop_id',$shopId)->paginate(12);
+       return view('vendor.shop.shop_page',compact('shop','products'));
     }
 
     /**
      * Display the specified resource.
-     * @param $shop_id
+     * @param $shopId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function info()
+    public function info($shopId)
     {
-        $shops = Shop::with('province','district','municipal','ward')->where('owner_id',Auth::id())->get();
-        return view('vendor.shop.profile',compact('shops'));
+        $this->checkAllowedAccess('edit-shop');
+        $shop = $this -> shopRepository -> ownerData($shopId);
+        return view('vendor.shop.shop_profile',compact('shop'));
     }
 
     /**
@@ -100,14 +102,12 @@ class ShopController extends Controller
      * Update the specified resource in storage.
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(StoreShopRequest $request, $id)
     {
-        $requestData = $request->all();
-        $shop = $this-> shopRepository->showData($id);
-        $shop->update($requestData);
-        return response()->json($shop,200);
+        $this-> shopRepository->handleEdit($request,$id);
+        return redirect()->route('shop.info',$id);
     }
 
     /**

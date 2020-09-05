@@ -6,8 +6,10 @@ use App\Cakeapp\Location\Model\District;
 use App\Cakeapp\Location\Model\Municipal;
 use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Location\Model\Ward;
+use App\Cakeapp\Vendor\Model\Shop;
 use App\Mail\UserVerified;
 use App\Cakeapp\User\Permission\HasPermissionsTrait;
+use App\Scopes\ActiveScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -64,6 +66,10 @@ class User extends Authenticatable
 
     public function ward(){
         return $this->belongsTo(Ward::class,'ward_id');
+    }
+
+    public function shops(){
+        return $this->hasMany(Shop::class,'owner_id');
     }
 
 

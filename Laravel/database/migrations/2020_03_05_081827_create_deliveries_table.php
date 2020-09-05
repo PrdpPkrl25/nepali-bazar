@@ -16,8 +16,10 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->dateTime('delivery_date');
-            $table->boolean('delivery_status');
+            $table->dateTime('delivery_started_at')->default(now()->addMinutes(15));
+            $table->dateTime('delivered_at')->nullable();
+            $table->integer('order_id');
+            $table->string('delivery_status')->default('Order received');
         });
     }
 

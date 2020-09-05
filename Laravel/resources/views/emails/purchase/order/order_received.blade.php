@@ -19,7 +19,7 @@ Payment Method: {{$order->payment_method}}<br>
 
 You will find the detail of order here:
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('order.received',$cartId)])
 Order Detail
 @endcomponent
 

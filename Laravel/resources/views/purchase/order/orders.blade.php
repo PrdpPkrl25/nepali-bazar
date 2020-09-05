@@ -36,9 +36,15 @@
                             </div>
                             @endforeach
                         @else
-                            <p class="font-weight-bold" style="font-size: 1.2em" >
-                            You haven't ordered anything yet. Checkout items in the Cart.</p>
-                            <a class="btn btn-light shadow border" href="{{'/web/home'}}">CONTINUE SHOPPING</a>
+                            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('customer'))
+                                <p class="font-weight-bold" style="font-size: 1.2em" >
+                                You haven't ordered anything yet. Checkout items in the Cart.</p>
+                                <a class="btn btn-light shadow border" href="{{route('home')}}">CONTINUE SHOPPING</a>
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->hasRole('owner'))
+                                <p class="font-weight-bold" style="font-size: 1.2em" >
+                                    You haven't received any order yet. List your product in Nepali Bazar.</p>
+                                <a class="btn btn-light shadow border" href="{{route('product.create')}}">ADD PRODUCT</a>
+                            @endif
                         @endif
                         </div>
 

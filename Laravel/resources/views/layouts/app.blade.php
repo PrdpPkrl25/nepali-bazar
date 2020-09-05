@@ -88,8 +88,8 @@
 
                             @if(\Illuminate\Support\Facades\Auth::user()->hasRole('owner'))
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('shop.profile') }}">
-                                    {{ __('Shops Profile') }}
+                                <a class="dropdown-item" href="{{ route('shops.list') }}">
+                                    {{ __('My Shops') }}
                                 </a>
 
                                 <div class="dropdown-divider"></div>
@@ -98,7 +98,7 @@
                                 </a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('order.received') }}">
+                                <a class="dropdown-item" href="{{ route('orders') }}">
                                     {{ __('Orders Received') }}
                                 </a>
                             @endif
@@ -141,14 +141,32 @@
 </nav>
 
 <div class="page-container">
-    @include('flash::message')
+    <div class="text-center">
+        @include('flash::message')
+    </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger" id="validation-message">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="text-center">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @yield('content')
+
     @include('footer')
 </div>
 
 @yield('script')
 <script>
-    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
+
+    setTimeout(function() {
+        $('#validation-message').fadeOut('fast');
+    }, 5000);
 </script>
 </body>
 </html>

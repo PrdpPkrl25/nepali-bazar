@@ -9,7 +9,7 @@ class Order extends Model
     protected $table='orders';
 
     protected $fillable=[
-       'cart_id','cart_session_id','name','phone_number','district','municipal','ward_number','locality','order_date','payment_method','delivery_charge','total_amount',
+       'cart_id','cart_session_id','name','phone_number','district','municipal','ward_number','locality','order_date','payment_method','total_price','delivery_charge','total_amount',
     ];
 
     public function cart(){

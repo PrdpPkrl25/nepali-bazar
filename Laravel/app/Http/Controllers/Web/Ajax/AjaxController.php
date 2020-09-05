@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Ajax;
 
 use App\Cakeapp\Location\Model\District;
 use App\Cakeapp\Location\Model\Municipal;
+use App\Cakeapp\Location\Model\Province;
 use App\Cakeapp\Location\Model\Ward;
 use App\Cakeapp\User\Model\User;
 use App\Http\Controllers\Controller;
@@ -12,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
+
+    public function select()
+    {
+        $provinces=Province::get();
+        return view('index',compact('provinces'));
+    }
+
     public function getDistrict(){
         $provinceId=\request()->input('province_id');
         $districts=District::where('province_id',$provinceId)->get();
@@ -30,13 +38,14 @@ class AjaxController extends Controller
         return $wards;
     }
 
-    public function postLocation(){
+    public function postInformation(){
         $provinceId=\request()->input('province_id');
         $districtId=\request()->input('district_id');
         $municipalId=\request()->input('municipal_id');
         $wardId=\request()->input('ward_id');
         $locality=\request()->input('locality');
-        User::where('id',Auth::id())->update(['province_id'=>$provinceId,'district_id'=>$districtId,'municipal_id'=>$municipalId,'ward_id'=>$wardId,'locality'=>$locality]);
+        $phoneNumber=\request()->input('phone_number');
+        User::where('id',Auth::id())->update(['province_id'=>$provinceId,'district_id'=>$districtId,'municipal_id'=>$municipalId,'ward_id'=>$wardId,'locality'=>$locality,'phone_number'=>$phoneNumber]);
         return route('home');
     }
 }

@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('base_quantity');
             $table->string('measure_unit');
             $table->decimal('price');
+            $table->boolean('active_status')->default(1);
             $table->timestamps();
         });
     }

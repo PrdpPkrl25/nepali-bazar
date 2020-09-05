@@ -65,7 +65,7 @@
                                 </tr>
                                 </tfoot>
                             </table>
-                            <a class="btn btn-light shadow border offset-md-1" href="{{'/web/home'}}">CONTINUE
+                            <a class="btn btn-light shadow border offset-md-1" href="{{route('home')}}">CONTINUE
                                 SHOPPING</a>
                             <a class="btn btn-warning shadow border offset-md-6" href="{{route('order.create')}}">PROCEED
                                 TO CHECKOUT </a>

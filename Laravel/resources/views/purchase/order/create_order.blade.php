@@ -130,12 +130,12 @@
 
                             <div class="row mt-2">
                                 <span class="col-md-6 font-weight-bolder">Delivery Fee: </span>
-                                <span class="col-md-6 font-weight-bolder">{{ __('Free') }}</span>
+                                <span class="col-md-6 font-weight-bolder">Rs {{ $delivery_charge }}</span>
                             </div>
                             <hr style="height:1px;border-width:0;color:lightgrey;background-color:gray;width: 90%">
                             <div class="row">
                                 <span class="col-md-6 font-weight-bolder">Total Amount: </span>
-                                <span class="col-md-6 font-weight-bolder">Rs {{$total_price }}</span>
+                                <span class="col-md-6 font-weight-bolder">Rs {{$total_price+$delivery_charge }}</span>
                             </div>
                         </div>
                     </div>

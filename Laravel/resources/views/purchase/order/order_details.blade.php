@@ -11,23 +11,28 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        Shipping Address:<br> {{$order->locality}} {{$order->municipal}}
+                                        Shipping Address:<br>
+                                        <span class="mt-4">
+                                            {{$order->locality}} {{$order->municipal}}
                                             -{{$order->ward_number}}, {{$order->district}}
+                                        </span>
+                                        <br>
+                                        <a href="{{route('delivery.detail',$order->id)}}" style="cursor: pointer;">Delivery Details </a>
                                     </div>
                                     <div class="col-md-4">
-                                        Payment Method:<br> {{$order->payment_method}}
+                                        Payment Method:<br> <span class="mt-4">{{$order->payment_method}}</span>
                                     </div>
                                     <div class="col-md-4 text-center">
                                          Order Summary:<br>
-                                        <div class="row">
+                                        <div class="row mt-2">
                                             <span
                                                 class="col-md-6 font-weight-bolder">Price({{$item_count}} item): </span>
-                                            <span class="col-md-6 font-weight-bolder">Rs {{$order->total_amount}}</span>
+                                            <span class="col-md-6 font-weight-bolder">Rs {{$order->total_price}}</span>
                                         </div>
 
                                         <div class="row mt-2">
                                             <span class="col-md-6 font-weight-bolder">Delivery Fee: </span>
-                                            <span class="col-md-6 font-weight-bolder">{{ __('Free') }}</span>
+                                            <span class="col-md-6 font-weight-bolder">{{ $order->delivery_charge }}</span>
                                         </div>
                                         <hr style="height:1px;border-width:0;color:lightgrey;background-color:gray;width: 95%">
                                         <div class="row">

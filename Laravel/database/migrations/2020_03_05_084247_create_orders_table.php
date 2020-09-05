@@ -25,7 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('locality');
             $table->dateTime('order_date');
             $table->string('payment_method');
-            $table->decimal('delivery_charge')->nullable();
+            $table->decimal('total_price');
+            $table->decimal('delivery_charge')->default(0);
             $table->decimal('total_amount');
             $table->timestamps();
         });

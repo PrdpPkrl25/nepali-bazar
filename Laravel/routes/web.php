@@ -39,22 +39,25 @@ Route ::namespace('Web\User') -> group(function () {
 });
 
 Route ::namespace('Web\Vendor') -> group(function () {
-    Route ::get('shop/create', 'ShopController@create')->name('shop.create');
-    Route ::post('shops', 'ShopController@store')->name('shops.store');
-    Route ::get('shop/{shop_id}', 'ShopController@show')->name('shop.select');
-    Route ::get('shop-account', 'ShopController@info')->name('shop.profile');
+    Route ::get('shop/create', 'ShopController@create')->name('shop.create')->middleware('auth');
+    Route ::post('shops', 'ShopController@store')->name('shops.store')->middleware('auth');
+    Route ::get('shop/{shop_id}/home', 'ShopController@show')->name('shop.select');
+    Route ::get('shops-list', 'ShopController@index')->name('shops.list')->middleware('auth');;
+    Route ::get('shop-info/{shop_id}', 'ShopController@info')->name('shop.info')->middleware('auth');;
+    Route ::post('/shop-info/{shop_id}', 'ShopController@update')->name('shop.update')->middleware('auth');
 });
 
 Route ::namespace('Web\Ajax') -> group(function () {
     Route ::get('/ajax/getdistrict', 'AjaxController@getDistrict') -> name('district.get');
     Route ::get('/ajax/getmunicipal', 'AjaxController@getMunicipal') -> name('municipal.get');
     Route ::get('/ajax/getward', 'AjaxController@getWard') -> name('ward.get');
-    Route ::post('/ajax/postlocation', 'AjaxController@postLocation') -> name('location.post');
+    Route ::get('/information/select', 'AjaxController@select') -> name('information.select');
+    Route ::post('/information', 'AjaxController@postInformation') -> name('information.post');
+
 });
 
 Route ::namespace('Web\Location') -> group(function () {
-    Route ::get('/location/select', 'LocationController@select') -> name('location.select');
-    Route ::post('/location', 'LocationController@store') -> name('location.store');
+    //
 });
 
 Route ::namespace('Web\Purchase') -> group(function () {
@@ -66,7 +69,7 @@ Route ::namespace('Web\Purchase') -> group(function () {
     Route ::post('/checkout', 'OrderController@store') -> name('order.store');
     Route ::get('/orders', 'OrderController@index') -> name('orders');
     Route ::get('/order/{order_id}', 'OrderController@show') -> name('order.show');
-    Route ::get('/order-received', 'OrderController@orderReceived') -> name('order.received');
+    Route ::get('/order-received/{cart_id}', 'OrderController@orderReceived') -> name('order.received');
     Route ::get('/order-confirmed/{cart_session_id}', 'OrderController@orderConfirmed') -> name('order.confirmed');
 
 });
@@ -74,15 +77,17 @@ Route ::namespace('Web\Purchase') -> group(function () {
 
 Route ::namespace('Web\Product') -> group(function () {
     Route ::get('/category/select', 'CategoryController@index') -> name('category.select');
-    Route ::get('/product/create', 'ProductController@create')->name('product.create');
-    Route ::post('/products', 'ProductController@store')->name('products.store');
+    Route ::get('/product/create', 'ProductController@create')->name('product.create')->middleware('auth');;
+    Route ::post('/products', 'ProductController@store')->name('products.store')->middleware('auth');;
     Route ::get('/products/{category_id}', 'ProductController@index')->name('products.select');
     Route ::get('/product/{product_id}', 'ProductController@show')->name('product.show');
     Route ::get('/products-listed', 'ProductController@productsListed')->name('products.listed');
-    Route ::get('/product/{product_id}/edit', 'ProductController@edit')->name('product.edit');
-    Route ::post('/product/{product_id}', 'ProductController@update')->name('product.update');
+    Route ::get('/product/{product_id}/edit', 'ProductController@edit')->name('product.edit')->middleware('auth');
+    Route ::post('/product/{product_id}', 'ProductController@update')->name('product.update')->middleware('auth');
+});
 
-
+Route ::namespace('Web\Delivery') -> group(function () {
+    Route ::get('/delivery/{order_id}', 'DeliveryController@show') -> name('delivery.detail');
 });
 
 

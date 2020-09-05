@@ -24,7 +24,14 @@ class StoreShopRequest extends FormRequest
     public function rules()
     {
         return [
+            'delivery_charge'=>'numeric|min:50'
+        ];
+    }
 
+    public function messages()
+    {
+        return [
+            'delivery_charge.min'  => 'Please Set Delivery Charge above 50.',
         ];
     }
 }

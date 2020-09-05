@@ -13,6 +13,7 @@ use App\Cakeapp\Vendor\Model\Owner;
 use App\Cakeapp\Vendor\Model\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductRequest;
+use App\Scopes\ActiveScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -51,7 +52,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-            $this->checkAllowedAccessForController('create-product');
+            $this->checkAllowedAccess('create-product');
             $categories=Category::all();
             $shops=Shop::where('owner_id',Auth::id())->get();
             return view('product.create_product',compact('categories','shops'));
@@ -104,13 +105,13 @@ class ProductController extends Controller
      * @param $product_id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($product_id)
+    public function edit($productId)
     {
+        $this->checkAllowedAccess('edit-product');
         $categories=Category::all();
         $shops=Shop::where('owner_id',Auth::id())->get();
-        $product=Product::where('id',$product_id)->first();
-        $features=Feature::where('product_id',$product->id)->get();
-        return view('product.product_edit',compact('product','shops','categories','features'));
+        $product=Product::with('features')->refactorProduct()->withoutGlobalScope(ActiveScope::class)->findOrFail($productId);
+        return view('product.product_edit',compact('product','shops','categories'));
     }
 
     /**

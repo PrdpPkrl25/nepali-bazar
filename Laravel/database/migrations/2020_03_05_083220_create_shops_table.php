@@ -18,7 +18,8 @@ class CreateShopsTable extends Migration
             $table->string('shop_name');
             $table->string('email');
             $table->string('phone_number');
-            $table->string('delivery_charge')->nullable();
+            $table->decimal('delivery_charge')->default(0);
+            $table->decimal('minimum_order_price')->default(0);
             $table->string('image_name')->nullable();
             $table->integer('owner_id')->nullable();
             $table->integer('province_id');
@@ -26,6 +27,7 @@ class CreateShopsTable extends Migration
             $table->integer('municipal_id');
             $table->integer('ward_id');
             $table->string('locality')->nullable();
+            $table->boolean('active_status')->default(1);
             $table->timestamps();
         });
     }

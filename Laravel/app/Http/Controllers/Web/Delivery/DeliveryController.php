@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Delivery;
+namespace App\Http\Controllers\Web\Delivery;
 
 use App\Cakeapp\Delivery\Model\Delivery;
 use App\Cakeapp\Delivery\Model\DeliveryRepository;
+use App\Cakeapp\Purchase\Model\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -52,12 +53,13 @@ class DeliveryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Delivery  $delivery
-     * @return \Illuminate\Http\Response
+     * @param $orderId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Delivery $delivery)
+    public function show($orderId)
     {
-        //
+        $order=Order::where('id',$orderId)->first();
+        return view('delivery.order_delivery_detail',compact('order'));
     }
 
     /**

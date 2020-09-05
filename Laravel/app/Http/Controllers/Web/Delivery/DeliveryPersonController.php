@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Delivery;
+namespace App\Http\Controllers\Web\Delivery;
 
 use App\Cakeapp\Delivery\Model\DeliveryPerson;
 use App\Cakeapp\Delivery\Model\DeliveryPersonRepository;

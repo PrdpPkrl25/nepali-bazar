@@ -25,8 +25,7 @@ class LocationController extends Controller
      */
     public function select()
     {
-        $provinces=Province::get();
-        return view('location.index',compact('provinces'));
+        //
     }
 
     /**

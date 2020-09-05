@@ -34,7 +34,7 @@ class OrderService
             $total_price = $product->pivot->net_price + $total_price;
         }
         $cart_session_id=session()->get('cart_session_id');
-        $delivery_charge=0;
+        $delivery_charge=$cart->shop->delivery_charge;
         $attr=[
             'cart_id'=>$cart->id,
             'cart_session_id'=>$cart_session_id,
@@ -46,6 +46,7 @@ class OrderService
             'locality'=>$request->locality,
             'order_date'=>now(),
             'payment_method'=>$request->cashondelivery,
+            'total_price'=>$total_price,
             'delivery_charge'=>$delivery_charge,
             'total_amount'=>$total_price+$delivery_charge,
         ];
