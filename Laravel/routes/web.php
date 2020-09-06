@@ -51,13 +51,14 @@ Route ::namespace('Web\Ajax') -> group(function () {
     Route ::get('/ajax/getdistrict', 'AjaxController@getDistrict') -> name('district.get');
     Route ::get('/ajax/getmunicipal', 'AjaxController@getMunicipal') -> name('municipal.get');
     Route ::get('/ajax/getward', 'AjaxController@getWard') -> name('ward.get');
+    Route ::get('/ajax/search', 'AjaxController@search') -> name('ajax.search');
     Route ::get('/information/select', 'AjaxController@select') -> name('information.select');
     Route ::post('/information', 'AjaxController@postInformation') -> name('information.post');
 
 });
 
-Route ::namespace('Web\Location') -> group(function () {
-    //
+Route ::namespace('Web\Common') -> group(function () {
+    Route ::get('/search/keyword', 'SearchController@find') -> name('keyword.search');
 });
 
 Route ::namespace('Web\Purchase') -> group(function () {

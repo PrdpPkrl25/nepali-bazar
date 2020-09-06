@@ -71,7 +71,7 @@ class ShopRepository extends Repository
         $district=District::where('district_name',$request->district)->first();
         $municipal=Municipal::where('municipal_name',$request->municipal)->first();
         $ward=Ward::where('ward_number',$request->ward_number)->first();
-        Shop::where('id',$id)->update(['shop_name'=>$request->name,'email'=>$request->email,'phone_number'=>$request->phone_number,'province_id'=>$province->id,'district_id'=>$district->id,'municipal_id'=>$municipal->id,'ward_id'=>$ward->id,'locality'=>$request->locality,'delivery_charge'=>$request->delivery_charge,'image_name'=>$image_name]);
+        Shop::where('id',$id)->update(['shop_name'=>$request->name,'email'=>$request->email,'phone_number'=>$request->phone_number,'province_id'=>$province->id,'district_id'=>$district->id,'municipal_id'=>$municipal->id,'ward_id'=>$ward->id,'locality'=>$request->locality,'delivery_charge'=>$request->delivery_charge,'minimum_order_price'=>$request->minimum_order_price,'image_name'=>$image_name]);
 
     }
 

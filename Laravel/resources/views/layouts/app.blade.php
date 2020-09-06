@@ -52,11 +52,21 @@
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search any Product or Shop"
-                       aria-label="Search">
-                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+                <div class="wrapper" style="position: relative">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('keyword.search') }}">
+                        @csrf
+                        <div class="form-group">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search..."
+                                   aria-label="Search" name="keyword" id="keyword" autocomplete="off">
+                            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+
+                        </div>
+                    </form>
+                    <div  id="itemList" style=" position: absolute;top: 40px;left: 0;"></div>
+                </div>
+
+
+
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -162,11 +172,42 @@
 
 @yield('script')
 <script>
+
+    $( document ).ready(function() {
+        $("#keyword").on('keyup',function(e) {
+            if ($("#keyword").val().length < 3) {
+                e.preventDefault();
+            } else {
+                var _token=$('input[name="_token"]').val()
+                $.ajax({
+                    url: "{{route('ajax.search')}}",
+                    data: {
+                        keyword: $("#keyword").val(),
+                    },
+                    type: "GET",
+                    dataType: 'html',
+                    success: function (result) {
+                      $('#itemList').fadeIn();
+                      $('#itemList').html(result);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click','li',function () {
+            $('#keyword').val($(this).text());
+            $('#itemList').fadeOut();
+
+        });
+    });
+
     $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
 
     setTimeout(function() {
         $('#validation-message').fadeOut('fast');
     }, 5000);
+
+
 </script>
 </body>
 </html>

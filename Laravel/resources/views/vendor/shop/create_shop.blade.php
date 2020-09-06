@@ -77,6 +77,13 @@
 
                         <div class="form-group row" >
                             <div class="col-md-4 offset-md-4 mt-2">
+                                <strong>Minimum Order Price:</strong>
+                                <input type="text" name="minimum_order_price"  class="form-control mt-2" placeholder="Set Minimum order Prce..">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" >
+                            <div class="col-md-4 offset-md-4 mt-2">
                                 <strong>Delivery Charge:</strong>
                                 <input type="text" name="delivery_charge"  class="form-control mt-2" placeholder="Set Delivery Charge..">
                             </div>

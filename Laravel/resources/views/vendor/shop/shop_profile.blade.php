@@ -98,6 +98,17 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="form-group row ">
+                                            <label for="min_order_price"
+                                                   class="col-md-4 col-form-label text-md-right font-weight-bolder">{{ __('Minimum Order Price:') }}</label>
+
+                                            <div class="col-md-6">
+                                                <input id="min_order_price" type="text" class="form-control text-center" name="minimum_order_price"
+                                                       value="{{$shop->minimum_order_price}}">
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row ">
                                             <label for="delivery_charge"
                                                    class="col-md-4 col-form-label text-md-right font-weight-bolder">{{ __('Delivery Charge:') }}</label>
