@@ -1,0 +1,18 @@
+<?php
+
+
+namespace App\Scopes;
+
+
+use App\Cakeapp\Vendor\Model\Shop;
+use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
+class ActiveScope implements Scope
+{
+    public function apply(Builder $builder, Model $model)
+    {
+        $builder->where('active_status', '=', 1);
+    }
+}
