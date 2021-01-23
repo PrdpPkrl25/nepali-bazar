@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card align-content-between" style="margin: 20px;margin-top: 100px">
+                <div class="card align-content-between" style="margin-top: 100px;margin-bottom:100px">
                     <div class="card-header">Save Your Information:</div>
 
                         <div class="form-group row mt-4" >
